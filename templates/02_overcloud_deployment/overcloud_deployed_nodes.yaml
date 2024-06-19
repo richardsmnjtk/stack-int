@@ -1,0 +1,157 @@
+parameter_defaults:
+  CephStorageCount: 1
+  CephStorageHostnameFormat: '%stackname%-cephstorage-%index%'
+  ComputeCount: 1
+  ComputeHostnameFormat: '%stackname%-novacompute-%index%'
+  ControllerCount: 3
+  ControllerHostnameFormat: '%stackname%-controller-%index%'
+  DeployedServerPortMap:
+    nah-ceph-0-ctlplane:
+      fixed_ips:
+      - ip_address: 10.2.3.47
+    nah-compute-0-ctlplane:
+      fixed_ips:
+      - ip_address: 10.2.3.45
+    nah-controller-0-ctlplane:
+      fixed_ips:
+      - ip_address: 10.2.3.42
+    nah-controller-1-ctlplane:
+      fixed_ips:
+      - ip_address: 10.2.3.43
+    nah-controller-2-ctlplane:
+      fixed_ips:
+      - ip_address: 10.2.3.44
+  HostnameMap:
+    overcloud-cephstorage-0: nah-ceph-0
+    overcloud-controller-0: nah-controller-0
+    overcloud-controller-1: nah-controller-1
+    overcloud-controller-2: nah-controller-2
+    overcloud-novacompute-0: nah-compute-0
+  NodePortMap:
+    nah-ceph-0:
+      ctlplane:
+        ip_address: 10.2.3.47
+        ip_address_uri: 10.2.3.47
+        ip_subnet: 10.2.3.47/24
+      external:
+        ip_address: 10.8.60.236
+        ip_address_uri: 10.8.60.236
+        ip_subnet: 10.8.60.236/24
+      storage:
+        ip_address: 172.24.3.47
+        ip_address_uri: 172.24.3.47
+        ip_subnet: 172.24.3.47/24
+      storage_mgmt:
+        ip_address: 172.24.4.47
+        ip_address_uri: 172.24.4.47
+        ip_subnet: 172.24.4.47/24
+    nah-compute-0:
+      ctlplane:
+        ip_address: 10.2.3.45
+        ip_address_uri: 10.2.3.45
+        ip_subnet: 10.2.3.45/24
+      external:
+        ip_address: 10.8.60.189
+        ip_address_uri: 10.8.60.189
+        ip_subnet: 10.8.60.189/24
+      internal_api:
+        ip_address: 172.24.1.45
+        ip_address_uri: 172.24.1.45
+        ip_subnet: 172.24.1.45/24
+      storage:
+        ip_address: 172.24.3.45
+        ip_address_uri: 172.24.3.45
+        ip_subnet: 172.24.3.45/24
+      tenant:
+        ip_address: 172.24.2.45
+        ip_address_uri: 172.24.2.45
+        ip_subnet: 172.24.2.45/24
+    nah-controller-0:
+      ctlplane:
+        ip_address: 10.2.3.42
+        ip_address_uri: 10.2.3.42
+        ip_subnet: 10.2.3.42/24
+      external:
+        ip_address: 10.8.60.186
+        ip_address_uri: 10.8.60.186
+        ip_subnet: 10.8.60.186/24
+      internal_api:
+        ip_address: 172.24.1.42
+        ip_address_uri: 172.24.1.42
+        ip_subnet: 172.24.1.42/24
+      storage:
+        ip_address: 172.24.3.42
+        ip_address_uri: 172.24.3.42
+        ip_subnet: 172.24.3.42/24
+      storage_mgmt:
+        ip_address: 172.24.4.42
+        ip_address_uri: 172.24.4.42
+        ip_subnet: 172.24.4.42/24
+      tenant:
+        ip_address: 172.24.2.42
+        ip_address_uri: 172.24.2.42
+        ip_subnet: 172.24.2.42/24
+    nah-controller-1:
+      ctlplane:
+        ip_address: 10.2.3.43
+        ip_address_uri: 10.2.3.43
+        ip_subnet: 10.2.3.43/24
+      external:
+        ip_address: 10.8.60.187
+        ip_address_uri: 10.8.60.187
+        ip_subnet: 10.8.60.187/24
+      internal_api:
+        ip_address: 172.24.1.43
+        ip_address_uri: 172.24.1.43
+        ip_subnet: 172.24.1.43/24
+      storage:
+        ip_address: 172.24.3.43
+        ip_address_uri: 172.24.3.43
+        ip_subnet: 172.24.3.43/24
+      storage_mgmt:
+        ip_address: 172.24.4.43
+        ip_address_uri: 172.24.4.43
+        ip_subnet: 172.24.4.43/24
+      tenant:
+        ip_address: 172.24.2.43
+        ip_address_uri: 172.24.2.43
+        ip_subnet: 172.24.2.43/24
+    nah-controller-2:
+      ctlplane:
+        ip_address: 10.2.3.44
+        ip_address_uri: 10.2.3.44
+        ip_subnet: 10.2.3.44/24
+      external:
+        ip_address: 10.8.60.188
+        ip_address_uri: 10.8.60.188
+        ip_subnet: 10.8.60.188/24
+      internal_api:
+        ip_address: 172.24.1.44
+        ip_address_uri: 172.24.1.44
+        ip_subnet: 172.24.1.44/24
+      storage:
+        ip_address: 172.24.3.44
+        ip_address_uri: 172.24.3.44
+        ip_subnet: 172.24.3.44/24
+      storage_mgmt:
+        ip_address: 172.24.4.44
+        ip_address_uri: 172.24.4.44
+        ip_subnet: 172.24.4.44/24
+      tenant:
+        ip_address: 172.24.2.44
+        ip_address_uri: 172.24.2.44
+        ip_subnet: 172.24.2.44/24
+resource_registry:
+  OS::TripleO::CephStorage::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_external.yaml
+  OS::TripleO::CephStorage::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_storage_mgmt.yaml
+  OS::TripleO::CephStorage::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_storage.yaml
+  OS::TripleO::Compute::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_external.yaml
+  OS::TripleO::Compute::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_internal_api.yaml
+  OS::TripleO::Compute::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_storage.yaml
+  OS::TripleO::Compute::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_tenant.yaml
+  OS::TripleO::Controller::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_external.yaml
+  OS::TripleO::Controller::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_internal_api.yaml
+  OS::TripleO::Controller::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_storage_mgmt.yaml
+  OS::TripleO::Controller::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_storage.yaml
+  OS::TripleO::Controller::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_tenant.yaml
+  OS::TripleO::DeployedServer::ControlPlanePort: /usr/share/openstack-tripleo-heat-templates/deployed-server/deployed-neutron-port.yaml

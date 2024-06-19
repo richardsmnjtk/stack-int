@@ -1,0 +1,120 @@
+- name: Controller
+  hostname_format: '%stackname%-controller-%index%'
+  count: 1
+  ansible_playbooks:
+    - playbook: /usr/share/ansible/tripleo-playbooks/cli-overcloud-node-growvols.yaml
+      extra_vars:
+        growvols_args: >
+          /=15GB
+          /tmp=4GB
+          /var/log=10GB
+          /var/log/audit=4GB
+          /home=2GB
+          /var=100%
+  defaults:
+    profile: control
+    config_drive:
+      cloud_config:
+        chpasswd:
+          list: |-
+            root:openstack
+          expire: False
+    networks:
+    - network: ctlplane
+      vif: true
+    - network: internal_api
+      subnet: internal_api_subnet
+    - network: tenant
+      subnet: tenant_subnet
+    - network: storage
+      subnet: storage_subnet
+    - network: storage_mgmt
+      subnet: storage_mgmt_subnet
+    - network: external
+      subnet: external_subnet
+    network_config:
+      template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/controller.j2
+      net_config_data_lookup:
+        new-controller-0:
+          nic1: 52:54:00:f2:54:63
+          nic2: 52:54:00:b8:7a:4c
+          nic3: 52:54:00:50:b6:74
+      default_route_network:
+      - external
+  instances:
+  - hostname: new-controller-0
+    name: new-controller-0
+    networks:
+    - network: ctlplane
+      vif: true
+      fixed_ip: 10.2.3.12
+    - network: internal_api
+      fixed_ip: 172.24.1.12
+    - network: tenant
+      fixed_ip: 172.24.2.12
+    - network: storage
+      fixed_ip: 172.24.3.12
+    - network: storage_mgmt
+      fixed_ip: 172.24.4.12
+    - network: external
+      fixed_ip: 10.8.60.191
+- name: ComputeHCI
+  hostname_format: '%stackname%-computehci-%index%'
+  count: 1
+  ansible_playbooks:
+    - playbook: /usr/share/ansible/tripleo-playbooks/cli-overcloud-node-growvols.yaml
+      extra_vars:
+        growvols_args: >
+          /=15GB
+          /tmp=4GB
+          /var/log=10GB
+          /var/log/audit=4GB
+          /home=2GB
+          /var=100%
+  defaults:
+    profile: hci
+    config_drive:
+      cloud_config:
+        chpasswd:
+          list: |-
+            root:openstack
+          expire: False
+    networks:
+    - network: ctlplane
+      vif: true
+    - network: internal_api
+      subnet: internal_api_subnet
+    - network: tenant
+      subnet: tenant_subnet
+    - network: storage
+      subnet: storage_subnet
+    - network: storage_mgmt
+      subnet: storage_mgmt_subnet
+    - network: external
+      subnet: external_subnet
+    network_config:
+      template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/compute-hci.j2
+      net_config_data_lookup:
+        new-hci-0:
+          nic1: 52:54:00:c4:ee:96
+          nic2: 52:54:00:61:96:2f
+          nic3: 52:54:00:e3:52:ce
+      default_route_network:
+      - external
+  instances:
+  - hostname: new-hci-0
+    name: new-hci-0
+    networks:
+    - network: ctlplane
+      vif: true
+      fixed_ip: 10.2.3.5
+    - network: internal_api
+      fixed_ip: 172.24.1.5
+    - network: tenant
+      fixed_ip: 172.24.2.5
+    - network: storage
+      fixed_ip: 172.24.3.5
+    - network: storage_mgmt
+      fixed_ip: 172.24.4.5
+    - network: external
+      fixed_ip: 10.8.60.192

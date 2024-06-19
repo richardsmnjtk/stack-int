@@ -1,0 +1,12 @@
+parameter_defaults:
+  NodeDataLookup:
+    ##  tmp-ceph-0
+    69b09787-ce28-425e-833d-69d46a706f65:
+      devices:
+        - '/dev/disk/by-path/pci-0000:0c:00.0'
+        - '/dev/disk/by-path/pci-0000:0d:00.0'
+        - '/dev/disk/by-path/pci-0000:0e:00.0'
+      osd_crush_location:
+        root: default
+        #rack: rack1_std
+        host: tmp-ceph-0

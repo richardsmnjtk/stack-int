@@ -1,0 +1,409 @@
+Undercloud:
+  hosts:
+    undercloud: {}
+  vars:
+    ansible_connection: local
+    ansible_host: localhost
+    ansible_python_interpreter: /usr/bin/python3.9
+    ansible_remote_tmp: /tmp/ansible-${USER}
+    any_error_fatal: true
+    auth_url: https://10.2.3.13:13000
+    max_fail_percentage: 0
+    project_name: admin
+    undercloud_service_list:
+    - tripleo_ironic_conductor
+    username: admin
+CephStorage:
+  hosts:
+    nah-ceph-0:
+      ansible_host: 10.2.3.47
+      canonical_hostname: nah-ceph-0.overcloud.kinton.lab
+      ctlplane_hostname: nah-ceph-0.ctlplane.overcloud.kinton.lab
+      ctlplane_ip: 10.2.3.47
+      default_route_network:
+      - external
+      dns_search_domains: []
+      external_hostname: nah-ceph-0.external.overcloud.kinton.lab
+      external_ip: 10.8.60.236
+      networks_skip_config: []
+      neutron_physical_bridge_name: br-ex
+      neutron_public_interface_name: nic1
+      num_dpdk_interface_rx_queues: 1
+      storage_hostname: nah-ceph-0.storage.overcloud.kinton.lab
+      storage_ip: 172.24.3.47
+      storage_mgmt_hostname: nah-ceph-0.storagemgmt.overcloud.kinton.lab
+      storage_mgmt_ip: 172.24.4.47
+      tripleo_network_config_os_net_config_mappings:
+        nah-ceph-0:
+          nic1: 52:54:00:89:3c:75
+          nic2: 52:54:00:ae:10:bc
+          nic3: 52:54:00:98:b5:b5
+      tripleo_network_config_template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/ceph.j2
+      tripleo_network_config_update: false
+    nah-ceph-1:
+      ansible_host: 10.2.3.48
+      canonical_hostname: nah-ceph-1.overcloud.kinton.lab
+      ctlplane_hostname: nah-ceph-1.ctlplane.overcloud.kinton.lab
+      ctlplane_ip: 10.2.3.48
+      default_route_network:
+      - external
+      dns_search_domains: []
+      external_hostname: nah-ceph-1.external.overcloud.kinton.lab
+      external_ip: 10.8.60.234
+      networks_skip_config: []
+      neutron_physical_bridge_name: br-ex
+      neutron_public_interface_name: nic1
+      num_dpdk_interface_rx_queues: 1
+      storage_hostname: nah-ceph-1.storage.overcloud.kinton.lab
+      storage_ip: 172.24.3.48
+      storage_mgmt_hostname: nah-ceph-1.storagemgmt.overcloud.kinton.lab
+      storage_mgmt_ip: 172.24.4.48
+      tripleo_network_config_os_net_config_mappings:
+        nah-ceph-0:
+          nic1: 52:54:00:89:3c:75
+          nic2: 52:54:00:ae:10:bc
+          nic3: 52:54:00:98:b5:b5
+      tripleo_network_config_template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/ceph.j2
+      tripleo_network_config_update: false
+    nah-ceph-2:
+      ansible_host: 10.2.3.49
+      canonical_hostname: nah-ceph-2.overcloud.kinton.lab
+      ctlplane_hostname: nah-ceph-2.ctlplane.overcloud.kinton.lab
+      ctlplane_ip: 10.2.3.49
+      default_route_network:
+      - external
+      dns_search_domains: []
+      external_hostname: nah-ceph-2.external.overcloud.kinton.lab
+      external_ip: 10.8.60.232
+      networks_skip_config: []
+      neutron_physical_bridge_name: br-ex
+      neutron_public_interface_name: nic1
+      num_dpdk_interface_rx_queues: 1
+      storage_hostname: nah-ceph-2.storage.overcloud.kinton.lab
+      storage_ip: 172.24.3.49
+      storage_mgmt_hostname: nah-ceph-2.storagemgmt.overcloud.kinton.lab
+      storage_mgmt_ip: 172.24.4.49
+      tripleo_network_config_os_net_config_mappings:
+        nah-ceph-0:
+          nic1: 52:54:00:89:3c:75
+          nic2: 52:54:00:ae:10:bc
+          nic3: 52:54:00:98:b5:b5
+      tripleo_network_config_template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/ceph.j2
+      tripleo_network_config_update: false
+  vars:
+    ansible_ssh_user: heat-admin
+    ctlplane_cidr: '24'
+    ctlplane_dns_nameservers: &id001 []
+    ctlplane_gateway_ip: 10.2.3.11
+    ctlplane_host_routes: []
+    ctlplane_mtu: 1500
+    ctlplane_subnet_cidr: '24'
+    ctlplane_vlan_id: '1'
+    external_cidr: '24'
+    external_dns_nameservers: &id002 []
+    external_gateway_ip: 10.8.60.1
+    external_host_routes:
+    - default: true
+      nexthop: 10.8.60.1
+    external_mtu: 1500
+    external_vlan_id: '1'
+    internal_api_mtu: 1500
+    networks_all: &id003
+    - Storage
+    - StorageMgmt
+    - InternalApi
+    - Tenant
+    - External
+    networks_lower: &id004
+      External: external
+      InternalApi: internal_api
+      Storage: storage
+      StorageMgmt: storage_mgmt
+      Tenant: tenant
+      ctlplane: ctlplane
+    role_networks:
+    - External
+    - StorageMgmt
+    - Storage
+    serial: 1
+    storage_cidr: '24'
+    storage_dns_nameservers: &id005 []
+    storage_gateway_ip: null
+    storage_host_routes: []
+    storage_mgmt_cidr: '24'
+    storage_mgmt_dns_nameservers: &id006 []
+    storage_mgmt_gateway_ip: null
+    storage_mgmt_host_routes: []
+    storage_mgmt_mtu: 1500
+    storage_mgmt_vlan_id: '40'
+    storage_mtu: 1500
+    storage_vlan_id: '30'
+    tenant_mtu: 1500
+    tripleo_network_config_hide_sensitive_logs: false
+    tripleo_network_config_with_ansible: true
+    tripleo_role_name: CephStorage
+    tripleo_role_networks:
+    - external
+    - ctlplane
+    - storage_mgmt
+    - storage
+Controller:
+  hosts:
+    nah-controller-0:
+      ansible_host: 10.2.3.42
+      canonical_hostname: nah-controller-0.overcloud.kinton.lab
+      ctlplane_hostname: nah-controller-0.ctlplane.overcloud.kinton.lab
+      ctlplane_ip: 10.2.3.42
+      default_route_network:
+      - external
+      dns_search_domains: []
+      external_hostname: nah-controller-0.external.overcloud.kinton.lab
+      external_ip: 10.8.60.186
+      internal_api_hostname: nah-controller-0.internalapi.overcloud.kinton.lab
+      internal_api_ip: 172.24.1.42
+      networks_skip_config: []
+      neutron_physical_bridge_name: br-ex
+      neutron_public_interface_name: nic1
+      num_dpdk_interface_rx_queues: 1
+      storage_hostname: nah-controller-0.storage.overcloud.kinton.lab
+      storage_ip: 172.24.3.42
+      storage_mgmt_hostname: nah-controller-0.storagemgmt.overcloud.kinton.lab
+      storage_mgmt_ip: 172.24.4.42
+      tenant_hostname: nah-controller-0.tenant.overcloud.kinton.lab
+      tenant_ip: 172.24.2.42
+      tripleo_network_config_os_net_config_mappings:
+        nah-controller-0:
+          nic1: 52:54:00:f4:ec:3c
+          nic2: 52:54:00:cb:8f:ff
+          nic3: 52:54:00:55:41:72
+        nah-controller-1:
+          nic1: 52:54:00:c5:e6:f1
+          nic2: 52:54:00:09:84:c1
+          nic3: 52:54:00:e0:cb:00
+        nah-controller-2:
+          nic1: 52:54:00:d2:7e:ba
+          nic2: 52:54:00:92:10:19
+          nic3: 52:54:00:64:4d:a0
+      tripleo_network_config_template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/controller.j2
+      tripleo_network_config_update: false
+    nah-controller-1:
+      ansible_host: 10.2.3.43
+      canonical_hostname: nah-controller-1.overcloud.kinton.lab
+      ctlplane_hostname: nah-controller-1.ctlplane.overcloud.kinton.lab
+      ctlplane_ip: 10.2.3.43
+      default_route_network:
+      - external
+      dns_search_domains: []
+      external_hostname: nah-controller-1.external.overcloud.kinton.lab
+      external_ip: 10.8.60.187
+      internal_api_hostname: nah-controller-1.internalapi.overcloud.kinton.lab
+      internal_api_ip: 172.24.1.43
+      networks_skip_config: []
+      neutron_physical_bridge_name: br-ex
+      neutron_public_interface_name: nic1
+      num_dpdk_interface_rx_queues: 1
+      storage_hostname: nah-controller-1.storage.overcloud.kinton.lab
+      storage_ip: 172.24.3.43
+      storage_mgmt_hostname: nah-controller-1.storagemgmt.overcloud.kinton.lab
+      storage_mgmt_ip: 172.24.4.43
+      tenant_hostname: nah-controller-1.tenant.overcloud.kinton.lab
+      tenant_ip: 172.24.2.43
+      tripleo_network_config_os_net_config_mappings:
+        nah-controller-0:
+          nic1: 52:54:00:f4:ec:3c
+          nic2: 52:54:00:cb:8f:ff
+          nic3: 52:54:00:55:41:72
+        nah-controller-1:
+          nic1: 52:54:00:c5:e6:f1
+          nic2: 52:54:00:09:84:c1
+          nic3: 52:54:00:e0:cb:00
+        nah-controller-2:
+          nic1: 52:54:00:d2:7e:ba
+          nic2: 52:54:00:92:10:19
+          nic3: 52:54:00:64:4d:a0
+      tripleo_network_config_template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/controller.j2
+      tripleo_network_config_update: false
+    nah-controller-2:
+      ansible_host: 10.2.3.44
+      canonical_hostname: nah-controller-2.overcloud.kinton.lab
+      ctlplane_hostname: nah-controller-2.ctlplane.overcloud.kinton.lab
+      ctlplane_ip: 10.2.3.44
+      default_route_network:
+      - external
+      dns_search_domains: []
+      external_hostname: nah-controller-2.external.overcloud.kinton.lab
+      external_ip: 10.8.60.188
+      internal_api_hostname: nah-controller-2.internalapi.overcloud.kinton.lab
+      internal_api_ip: 172.24.1.44
+      networks_skip_config: []
+      neutron_physical_bridge_name: br-ex
+      neutron_public_interface_name: nic1
+      num_dpdk_interface_rx_queues: 1
+      storage_hostname: nah-controller-2.storage.overcloud.kinton.lab
+      storage_ip: 172.24.3.44
+      storage_mgmt_hostname: nah-controller-2.storagemgmt.overcloud.kinton.lab
+      storage_mgmt_ip: 172.24.4.44
+      tenant_hostname: nah-controller-2.tenant.overcloud.kinton.lab
+      tenant_ip: 172.24.2.44
+      tripleo_network_config_os_net_config_mappings:
+        nah-controller-0:
+          nic1: 52:54:00:f4:ec:3c
+          nic2: 52:54:00:cb:8f:ff
+          nic3: 52:54:00:55:41:72
+        nah-controller-1:
+          nic1: 52:54:00:c5:e6:f1
+          nic2: 52:54:00:09:84:c1
+          nic3: 52:54:00:e0:cb:00
+        nah-controller-2:
+          nic1: 52:54:00:d2:7e:ba
+          nic2: 52:54:00:92:10:19
+          nic3: 52:54:00:64:4d:a0
+      tripleo_network_config_template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/controller.j2
+      tripleo_network_config_update: false
+  vars:
+    ansible_ssh_user: heat-admin
+    ctlplane_cidr: '24'
+    ctlplane_dns_nameservers: *id001
+    ctlplane_gateway_ip: 10.2.3.11
+    ctlplane_host_routes: []
+    ctlplane_mtu: 1500
+    ctlplane_subnet_cidr: '24'
+    ctlplane_vlan_id: '1'
+    external_cidr: '24'
+    external_dns_nameservers: *id002
+    external_gateway_ip: 10.8.60.1
+    external_host_routes:
+    - default: true
+      nexthop: 10.8.60.1
+    external_mtu: 1500
+    external_vlan_id: '1'
+    internal_api_cidr: '24'
+    internal_api_dns_nameservers: &id007 []
+    internal_api_gateway_ip: null
+    internal_api_host_routes: []
+    internal_api_mtu: 1500
+    internal_api_vlan_id: '10'
+    networks_all: *id003
+    networks_lower: *id004
+    role_networks:
+    - External
+    - Storage
+    - StorageMgmt
+    - Tenant
+    - InternalApi
+    serial: 1
+    storage_cidr: '24'
+    storage_dns_nameservers: *id005
+    storage_gateway_ip: null
+    storage_host_routes: []
+    storage_mgmt_cidr: '24'
+    storage_mgmt_dns_nameservers: *id006
+    storage_mgmt_gateway_ip: null
+    storage_mgmt_host_routes: []
+    storage_mgmt_mtu: 1500
+    storage_mgmt_vlan_id: '40'
+    storage_mtu: 1500
+    storage_vlan_id: '30'
+    tenant_cidr: '24'
+    tenant_dns_nameservers: &id008 []
+    tenant_gateway_ip: null
+    tenant_host_routes: []
+    tenant_mtu: 1500
+    tenant_vlan_id: '20'
+    tripleo_network_config_hide_sensitive_logs: false
+    tripleo_network_config_with_ansible: true
+    tripleo_role_name: Controller
+    tripleo_role_networks:
+    - external
+    - storage
+    - storage_mgmt
+    - ctlplane
+    - tenant
+    - internal_api
+Compute:
+  hosts:
+    nah-compute-0:
+      ansible_host: 10.2.3.45
+      canonical_hostname: nah-compute-0.overcloud.kinton.lab
+      ctlplane_hostname: nah-compute-0.ctlplane.overcloud.kinton.lab
+      ctlplane_ip: 10.2.3.45
+      default_route_network:
+      - external
+      dns_search_domains: []
+      external_hostname: nah-compute-0.external.overcloud.kinton.lab
+      external_ip: 10.8.60.189
+      internal_api_hostname: nah-compute-0.internalapi.overcloud.kinton.lab
+      internal_api_ip: 172.24.1.45
+      networks_skip_config: []
+      neutron_physical_bridge_name: br-ex
+      neutron_public_interface_name: nic1
+      num_dpdk_interface_rx_queues: 1
+      storage_hostname: nah-compute-0.storage.overcloud.kinton.lab
+      storage_ip: 172.24.3.45
+      tenant_hostname: nah-compute-0.tenant.overcloud.kinton.lab
+      tenant_ip: 172.24.2.45
+      tripleo_network_config_os_net_config_mappings:
+        nah-compute-0:
+          nic1: 52:54:00:1c:b9:39
+          nic2: 52:54:00:38:f7:e1
+          nic3: 52:54:00:1b:14:f6
+      tripleo_network_config_template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/compute.j2
+      tripleo_network_config_update: false
+  vars:
+    ansible_ssh_user: heat-admin
+    ctlplane_cidr: '24'
+    ctlplane_dns_nameservers: *id001
+    ctlplane_gateway_ip: 10.2.3.11
+    ctlplane_host_routes: []
+    ctlplane_mtu: 1500
+    ctlplane_subnet_cidr: '24'
+    ctlplane_vlan_id: '1'
+    external_cidr: '24'
+    external_dns_nameservers: *id002
+    external_gateway_ip: 10.8.60.1
+    external_host_routes:
+    - default: true
+      nexthop: 10.8.60.1
+    external_mtu: 1500
+    external_vlan_id: '1'
+    internal_api_cidr: '24'
+    internal_api_dns_nameservers: *id007
+    internal_api_gateway_ip: null
+    internal_api_host_routes: []
+    internal_api_mtu: 1500
+    internal_api_vlan_id: '10'
+    networks_all: *id003
+    networks_lower: *id004
+    role_networks:
+    - InternalApi
+    - Tenant
+    - Storage
+    - External
+    serial: 1
+    storage_cidr: '24'
+    storage_dns_nameservers: *id005
+    storage_gateway_ip: null
+    storage_host_routes: []
+    storage_mgmt_mtu: 1500
+    storage_mtu: 1500
+    storage_vlan_id: '30'
+    tenant_cidr: '24'
+    tenant_dns_nameservers: *id008
+    tenant_gateway_ip: null
+    tenant_host_routes: []
+    tenant_mtu: 1500
+    tenant_vlan_id: '20'
+    tripleo_network_config_hide_sensitive_logs: false
+    tripleo_network_config_with_ansible: true
+    tripleo_role_name: Compute
+    tripleo_role_networks:
+    - internal_api
+    - ctlplane
+    - tenant
+    - storage
+    - external
+allovercloud:
+  children:
+    CephStorage: {}
+    Compute: {}
+    Controller: {}

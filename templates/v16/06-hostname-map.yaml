@@ -1,0 +1,11 @@
+parameter_defaults:
+  HostnameMap:
+    controller-0: bip-controller-0     # 10.8.60.9   | Controller Nodes 01    |
+    overcloud-controller-1: XXXXXXX     # 10.8.60.9   | Controller Nodes 02    |
+    overcloud-controller-2: XXXXXXX     # 10.8.60.9   | Controller Nodes 03    |
+    compute-1: bip-compute-0     # 10.8.60.9   | Compute Nodes 01       |
+    overcloud-computeiha-1: bip-cmpt02-l2-ry     # 10.8.60.9   | Compute Nodes 02       |
+    overcloud-computeiha-2: bip-cmpt03-l3-rz     # 10.8.60.9   | Compute Nodes 03       |
+    ceph-0: bip-ceph-0         # 10.8.60.9   | Storage SSD Nodes 01   |
+    overcloud-cephssd-1: bip-ssd02-l2-ry         # 10.8.60.9   | Storage SSD Nodes 02   |
+    overcloud-cephhdd-0: bip-hdd01-l3-rz         # 10.8.60.9   | Storage HDD Nodes 01   |

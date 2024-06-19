@@ -1,0 +1,56 @@
+- name: Storage
+  name_lower: storage
+  vip: true
+  mtu: 1500
+  subnets:
+    storage_subnet:
+      ip_subnet: 172.24.3.0/24
+      allocation_pools:
+        - start: 172.24.3.51
+          end: 172.24.3.100
+      vlan: 30
+- name: StorageMgmt
+  name_lower: storage_mgmt
+  vip: true
+  mtu: 1500
+  subnets:
+    storage_mgmt_subnet:
+      ip_subnet: 172.24.4.0/24
+      allocation_pools:
+        - start: 172.24.4.51
+          end: 172.24.4.100
+      vlan: 40
+- name: InternalApi
+  name_lower: internal_api
+  vip: true
+  mtu: 1500
+  subnets:
+    internal_api_subnet:
+      ip_subnet: 172.24.1.0/24
+      allocation_pools:
+        - start: 172.24.1.51
+          end: 172.24.1.100
+      vlan: 10
+- name: Tenant
+  vip: false  # Tenant network does not use VIPs
+  mtu: 1500
+  name_lower: tenant
+  subnets:
+    tenant_subnet:
+      ip_subnet: 172.24.2.0/24
+      allocation_pools:
+        - start: 172.24.2.51
+          end: 172.24.2.100
+      vlan: 20
+- name: External
+  name_lower: external
+  vip: true
+  mtu: 1500
+  subnets:
+    external_subnet:
+      ip_subnet: 10.8.60.0/24
+      allocation_pools:
+        - start: 10.8.60.230
+          end: 10.8.60.237
+      gateway_ip: 10.8.60.1
+      #vlan: 10

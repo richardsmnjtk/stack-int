@@ -1,0 +1,78 @@
+parameter_defaults:
+  ComputeHCICount: 1
+  ComputeHCIHostnameFormat: '%stackname%-computehci-%index%'
+  ControllerCount: 1
+  ControllerHostnameFormat: '%stackname%-controller-%index%'
+  DeployedServerPortMap:
+    new-controller-0-ctlplane:
+      fixed_ips:
+      - ip_address: 10.2.3.2
+    new-hci-0-ctlplane:
+      fixed_ips:
+      - ip_address: 10.2.3.5
+  HostnameMap:
+    overcloud-computehci-0: new-hci-0
+    overcloud-controller-0: new-controller-0
+  NodePortMap:
+    new-controller-0:
+      ctlplane:
+        ip_address: 10.2.3.2
+        ip_address_uri: 10.2.3.2
+        ip_subnet: 10.2.3.2/24
+      external:
+        ip_address: 10.8.60.191
+        ip_address_uri: 10.8.60.191
+        ip_subnet: 10.8.60.191/24
+      internal_api:
+        ip_address: 172.24.1.2
+        ip_address_uri: 172.24.1.2
+        ip_subnet: 172.24.1.2/24
+      storage:
+        ip_address: 172.24.3.2
+        ip_address_uri: 172.24.3.2
+        ip_subnet: 172.24.3.2/24
+      storage_mgmt:
+        ip_address: 172.24.4.2
+        ip_address_uri: 172.24.4.2
+        ip_subnet: 172.24.4.2/24
+      tenant:
+        ip_address: 172.24.2.2
+        ip_address_uri: 172.24.2.2
+        ip_subnet: 172.24.2.2/24
+    new-hci-0:
+      ctlplane:
+        ip_address: 10.2.3.5
+        ip_address_uri: 10.2.3.5
+        ip_subnet: 10.2.3.5/24
+      external:
+        ip_address: 10.8.60.192
+        ip_address_uri: 10.8.60.192
+        ip_subnet: 10.8.60.192/24
+      internal_api:
+        ip_address: 172.24.1.5
+        ip_address_uri: 172.24.1.5
+        ip_subnet: 172.24.1.5/24
+      storage:
+        ip_address: 172.24.3.5
+        ip_address_uri: 172.24.3.5
+        ip_subnet: 172.24.3.5/24
+      storage_mgmt:
+        ip_address: 172.24.4.5
+        ip_address_uri: 172.24.4.5
+        ip_subnet: 172.24.4.5/24
+      tenant:
+        ip_address: 172.24.2.5
+        ip_address_uri: 172.24.2.5
+        ip_subnet: 172.24.2.5/24
+resource_registry:
+  OS::TripleO::ComputeHCI::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_external.yaml
+  OS::TripleO::ComputeHCI::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_internal_api.yaml
+  OS::TripleO::ComputeHCI::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_storage_mgmt.yaml
+  OS::TripleO::ComputeHCI::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_storage.yaml
+  OS::TripleO::ComputeHCI::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_tenant.yaml
+  OS::TripleO::Controller::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_external.yaml
+  OS::TripleO::Controller::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_internal_api.yaml
+  OS::TripleO::Controller::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_storage_mgmt.yaml
+  OS::TripleO::Controller::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_storage.yaml
+  OS::TripleO::Controller::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/deployed_tenant.yaml
+  OS::TripleO::DeployedServer::ControlPlanePort: /usr/share/openstack-tripleo-heat-templates/deployed-server/deployed-neutron-port.yaml

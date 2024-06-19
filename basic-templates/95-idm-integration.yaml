@@ -1,0 +1,27 @@
+parameter_defaults:
+  KeystoneLDAPDomainEnable: true
+  KeystoneLDAPBackendConfigs:
+    Example:
+      url: ldaps://utility.lab.example.com
+      user: uid=svc-ldap,cn=users,cn=accounts,dc=lab,dc=example,dc=net
+      password: redhat
+      user_tree_dn: cn=users,cn=accounts,dc=lab,dc=example,dc=net
+      user_objectclass: inetUser
+      user_id_attribute: uid
+      user_name_attribute: uid
+      user_mail_attribute: mail
+      user_allow_create: False
+      user_allow_update: False
+      user_allow_delete: False
+      group_objectclass: groupofnames
+      group_tree_dn: cn=groups,cn=accounts,dc=lab,dc=example,dc=net
+      group_id_attribute: cn
+      group_name_attribute: cn
+      group_allow_create: False
+      group_allow_update: False
+      group_allow_delete: False
+      use_tls: False
+      query_scope: sub
+      chase_referrals: False
+      tls_cacertfile: /etc/pki/ca-trust/source/anchors/idm-ca.crt
+

@@ -1,0 +1,27 @@
+resource_registry:
+  OS::TripleO::Services::CephGrafana: /usr/share/openstack-tripleo-heat-templates/deployment/ceph-ansible/ceph-grafana.yaml
+
+parameter_defaults:
+  CephEnableDashboard: true
+  CephDashboardAdminRO: false
+  CephGrafanaAdminPassword: Admin123!
+  CephDashboardAdminPassword: Admin123!
+
+  ExtraConfig:
+    ceph_dashboard_vip: '10.8.60.111'
+    ceph_grafana_vip: '10.8.60.111'
+    ceph_rgw_public_vip: '10.8.60.111'
+
+    service_ports:
+      ceph_rgw_port: 8080
+      ceph_rgw_ssl_port: 443
+      ceph_dashboard_port: 8444
+      ceph_dashboard_ssl_port: 8444
+      ceph_alertmanager_port: 9093
+      ceph_alertmanager_ssl_port: 9093
+      ceph_grafana_port: 3100
+      ceph_grafana_ssl_port: 3100
+      ceph_prometheus_port: 9092
+      ceph_prometheus_ssl_port: 9092
+
+    

@@ -1,0 +1,28 @@
+parameter_defaults:
+  NodeDataLookup:
+    ##  tmp-ceph-0
+    68d408f2-b30c-4ad7-a9ee-0dc07734cc3c:
+      devices:
+        - '/dev/disk/by-path/pci-0000:08:00.0'
+        - '/dev/disk/by-path/pci-0000:09:00.0'
+        - '/dev/disk/by-path/pci-0000:0a:00.0'
+    
+    ## tmp-hci-0
+    e1404588-c789-4794-a076-02b60c8d684d:
+      devices:
+        - '/dev/disk/by-path/pci-0000:00:0a.0'
+        - '/dev/disk/by-path/pci-0000:00:0b.0'
+        - '/dev/disk/by-path/pci-0000:00:0c.0'
+  
+  CephAnsibleDisksConfig:
+    osd_scenario: collocated
+    journal_size: 1024
+  # https://bugs.launchpad.net/tripleo/+bug/1749544
+  CephPoolDefaultSize: 1
+  CephPoolDefaultPgNum: 32
+  # CephConfigOverrides:
+  # mon_max_pg_per_osd: 2048
+  CephAnsiblePlaybookVerbosity: 3
+  CephAnsibleEnvironmentVariables:
+    ANSIBLE_SSH_RETRIES: '6'
+    DEFAULT_FORKS: '35'

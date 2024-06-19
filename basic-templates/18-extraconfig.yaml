@@ -1,0 +1,27 @@
+parameter_defaults:
+  TimeZone: 'Asia/Jakarta'
+  NovaSchedulerDefaultFilters: AggregateInstanceExtraSpecsFilter,RetryFilter,AvailabilityZoneFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,AggregateImagePropertiesIsolation,AggregateMultiTenancyIsolation
+  
+  ControllerExtraConfig:
+    horizon::instance_options:
+      create_volume: False
+    nova::ram_allocation_ratio: 2.0
+    tripleo::haproxy::haproxy_default_maxconn: 15000
+    nova::api::allow_resize_to_same_host: True
+    tripleo::haproxy::haproxy_default_timeout: [ 'http-request 10s', 'queue 12m', 'connect 10s', 'client 12m', 'server 12m', 'check 10s' ]
+    
+  ComputeExtraConfig:
+ #   cinder::rpc_response_timeout: 3600
+ #   nova::config::nova_config:
+ #      libvirt/cpu_models:
+ #        value: 'Broadwell-IBRS'
+ #    nova::compute::libvirt::libvirt_cpu_mode: 'custom'
+ #    #nova::compute::libvirt::libvirt_cpu_model: ''
+    nova::cpu_allocation_ratio: 8.0
+    nova::ram_allocation_ratio: 8.0
+    nova::disk_allocation_ratio: 8.0
+    nova::compute::resize_confirm_window: 15
+    nova::block_device_allocate_retries: 600
+    nova::rpc_response_timeout: 3600
+    nova::compute::resume_guests_state_on_host_boot: True
+    nova::network::neutron::vif_plugging_timeout: 900

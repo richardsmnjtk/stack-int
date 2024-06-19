@@ -1,0 +1,50 @@
+# Enable the creation of Neutron networks for isolated Overcloud
+# traffic and configure each role to assign ports (related
+# to that role) on these networks.
+# primary role is: Controller
+resource_registry:
+  # networks as defined in network_data.yaml
+  OS::TripleO::Network::Storage: /usr/share/tripleo-heat-templates-rendered/network/storage.yaml
+  OS::TripleO::Network::StorageMgmt: /usr/share/tripleo-heat-templates-rendered/network/storage_mgmt.yaml
+  OS::TripleO::Network::InternalApi: /usr/share/tripleo-heat-templates-rendered/network/internal_api.yaml
+  OS::TripleO::Network::Tenant: /usr/share/tripleo-heat-templates-rendered/network/tenant.yaml
+  OS::TripleO::Network::External: /usr/share/tripleo-heat-templates-rendered/network/external.yaml
+  OS::TripleO::Network::Management: /usr/share/tripleo-heat-templates-rendered/network/management.yaml
+
+  # Port assignments for the VIPs
+  OS::TripleO::Network::Ports::StorageVipPort: /usr/share/tripleo-heat-templates-rendered/network/ports/storage.yaml
+  OS::TripleO::Network::Ports::StorageMgmtVipPort: /usr/share/tripleo-heat-templates-rendered/network/ports/storage_mgmt.yaml
+  OS::TripleO::Network::Ports::InternalApiVipPort: /usr/share/tripleo-heat-templates-rendered/network/ports/internal_api.yaml
+  OS::TripleO::Network::Ports::ExternalVipPort: /usr/share/tripleo-heat-templates-rendered/network/ports/external.yaml
+  OS::TripleO::Network::Ports::RedisVipPort: /usr/share/tripleo-heat-templates-rendered/network/ports/vip.yaml
+  OS::TripleO::Network::Ports::OVNDBsVipPort: /usr/share/tripleo-heat-templates-rendered/network/ports/vip.yaml
+
+  # Port assignments by role, edit role definition to assign networks to roles.
+  # Port assignments for the Controller
+  OS::TripleO::Controller::Ports::StoragePort: /usr/share/tripleo-heat-templates-rendered/network/ports/storage.yaml
+  OS::TripleO::Controller::Ports::StorageMgmtPort: /usr/share/tripleo-heat-templates-rendered/network/ports/storage_mgmt.yaml
+  OS::TripleO::Controller::Ports::InternalApiPort: /usr/share/tripleo-heat-templates-rendered/network/ports/internal_api.yaml
+  OS::TripleO::Controller::Ports::TenantPort: /usr/share/tripleo-heat-templates-rendered/network/ports/tenant.yaml
+  OS::TripleO::Controller::Ports::ExternalPort: /usr/share/tripleo-heat-templates-rendered/network/ports/external.yaml
+  OS::TripleO::Controller::Ports::ManagementPort: /usr/share/tripleo-heat-templates-rendered/network/ports/management.yaml
+
+  # Port assignments for the Compute
+  OS::TripleO::Compute::Ports::StoragePort: /usr/share/tripleo-heat-templates-rendered/network/ports/storage.yaml
+  OS::TripleO::Compute::Ports::InternalApiPort: /usr/share/tripleo-heat-templates-rendered/network/ports/internal_api.yaml
+  OS::TripleO::Compute::Ports::TenantPort: /usr/share/tripleo-heat-templates-rendered/network/ports/tenant.yaml
+  OS::TripleO::Compute::Ports::ExternalPort: /usr/share/tripleo-heat-templates-rendered/network/ports/external.yaml
+  OS::TripleO::Compute::Ports::ManagementPort: /usr/share/tripleo-heat-templates-rendered/network/ports/management.yaml
+
+  # Port assignments for the CephStorage
+  OS::TripleO::CephStorage::Ports::ExternalPort: /usr/share/tripleo-heat-templates-rendered/network/ports/external.yaml
+  OS::TripleO::CephStorage::Ports::StoragePort: /usr/share/tripleo-heat-templates-rendered/network/ports/storage.yaml
+  OS::TripleO::CephStorage::Ports::StorageMgmtPort: /usr/share/tripleo-heat-templates-rendered/network/ports/storage_mgmt.yaml
+  OS::TripleO::CephStorage::Ports::ManagementPort: /usr/share/tripleo-heat-templates-rendered/network/ports/management.yaml
+
+  # Port assignments for the ComputeHCI
+  OS::TripleO::ComputeHCI::Ports::StoragePort: /usr/share/tripleo-heat-templates-rendered/network/ports/storage.yaml
+  OS::TripleO::ComputeHCI::Ports::InternalApiPort: /usr/share/tripleo-heat-templates-rendered/network/ports/internal_api.yaml
+  OS::TripleO::ComputeHCI::Ports::TenantPort: /usr/share/tripleo-heat-templates-rendered/network/ports/tenant.yaml
+  OS::TripleO::ComputeHCI::Ports::ExternalPort: /usr/share/tripleo-heat-templates-rendered/network/ports/external.yaml
+  OS::TripleO::ComputeHCI::Ports::ManagementPort: /usr/share/tripleo-heat-templates-rendered/network/ports/management.yaml
+  OS::TripleO::ComputeHCI::Ports::StorageMgmtPort: /usr/share/tripleo-heat-templates-rendered/network/ports/storage_mgmt.yaml

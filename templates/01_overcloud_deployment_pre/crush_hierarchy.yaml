@@ -1,0 +1,10 @@
+ceph_crush_hierarchy:
+  nah-ceph-0:
+    root: standard_root
+    rack: rack1_std
+  nah-ceph-1:
+    root: standard_root
+    rack: rack1_std
+  nah-ceph-2:
+    root: standard_root
+    rack: rack1_std

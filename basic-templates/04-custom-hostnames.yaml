@@ -1,0 +1,24 @@
+parameter_defaults:
+  #ControllerHostnameFormat: 'intern-controller-%index%'
+  #ComputeHostnameFormat: 'intern-compute-%index%'
+  #CephStorageHostnameFormat: 'intern-ceph-%index%'
+  #  ComputeSoleHostnameFormat: 'computesole%index%'
+  #  ComputeDedicatedHostnameFormat: 'computededicated%index%'
+  #  ComputeHCIHostnameFormat: 'computehci%index%'
+  
+  # These scheduler hints replace tagging nodes and flavors with matching 'profile' tags
+  # The 'capabilities:node' is marked on each node in the instackenv.json file
+  ControllerSchedulerHints:
+    'capabilities:node': 'controller-%index%'
+  ComputeSchedulerHints:
+    'capabilities:node': 'compute-%index%'
+  CephStorageSchedulerHints:
+    'capabilities:node': 'ceph-%index%'
+  #ComputeHCISchedulerHints:
+  #  'capabilities:node': 'tmp-hci-%index%'
+
+  HostnameMap:
+    overcloud-controller-0: tmp-controller-0
+    overcloud-novacompute-0: tmp-compute-0
+    overcloud-cephstorage-0: tmp-ceph-0
+    #overcloud-computehci-0: tmp-hci-0

@@ -1,0 +1,26 @@
+parameter_defaults:
+  NodeDataLookup:
+    d5a7be71-f54c-4b69-8de4-0a6813da2bf6:
+      devices:
+        - data: '/dev/disk/by-path/pci-0000:07:00.0'
+          crush_device_class: 'hdd'
+        - data: '/dev/disk/by-path/pci-0000:08:00.0'
+          crush_device_class: 'hdd'
+        - data: '/dev/disk/by-path/pci-0000:09:00.0'
+          crush_device_class: 'hdd'
+      osd_crush_location:
+        root: standard_root
+        rack: rack1_std
+        host: ceph0
+    8c96ba71-a973-4896-bd0f-18e0c1b633e7:
+      devices:
+        - data: '/dev/disk/by-path/pci-0000:00:1f.2-ata-2'
+          crush_device_class: 'ssd'
+        - data: '/dev/disk/by-path/pci-0000:00:1f.2-ata-3'
+          crush_device_class: 'ssd'
+        - data: '/dev/disk/by-path/pci-0000:00:1f.2-ata-4'
+          crush_device_class: 'ssd'
+      osd_crush_location:
+        root: fast_root
+        rack: rack1_fast
+        host: ceph1

@@ -1,0 +1,11 @@
+---
+parameter_defaults:
+  CephClusterFSID: 024303f5-33af-5385-9dc7-5e67077659ea
+  CephDynamicSpec: false
+  DeployedCeph: true
+  CephadmDefaultContainer: False
+  ContainerCephDaemonImage: director-17.ctlplane.overcloud.kinton.lab:8787/rhceph/rhceph-5-rhel8:5-287
+  CephClusterName: ceph
+  CephClientConfigVars: /home/stack/overcloud-deploy/overcloud/ceph_client.yml
+  # Recommendation: set the following to false after overcloud is deployed
+  ApplyCephConfigOverridesOnUpdate: true

@@ -1,0 +1,40 @@
+---
+addr: 10.2.3.2
+hostname: nah-controller-0
+labels:
+- _admin
+- mgr
+- mon
+service_type: host
+---
+addr: 10.2.3.8
+hostname: nah-ceph-0
+labels:
+- osd
+service_type: host
+location:
+  root: standard_root
+  rack: rack1_std
+---
+placement:
+  hosts:
+  - nah-controller-0
+service_id: mon
+service_name: mon
+service_type: mon
+---
+placement:
+  hosts:
+  - nah-controller-0
+service_id: mgr
+service_name: mgr
+service_type: mgr
+---
+placement:
+  hosts:
+    - nah-ceph-0
+data_devices:
+  all: true
+  #size: '180G:'
+encrypted: true
+service_type: osd

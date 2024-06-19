@@ -1,0 +1,16 @@
+- network: ctlplane
+  name: ctlplane_vip
+  #dns_name: overcloud
+  ip_address: 10.2.3.100
+- network: internal_api
+  name: internal_api_vip
+  ip_address: 172.24.1.50
+- network: storage
+  name: storage_vip
+  ip_address: 172.24.3.50
+- network: storage_mgmt
+  name: storage_mgmt_vip
+  ip_address: 172.24.4.50
+- network: external
+  name: external_api_vip
+  ip_address: 10.8.60.192

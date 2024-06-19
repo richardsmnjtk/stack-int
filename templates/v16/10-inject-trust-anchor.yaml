@@ -1,0 +1,31 @@
+parameter_defaults:
+  # SK:20180527: Ensure to use same CA cert in PEM format as used in undercloud.
+  # If there is mismatch the deployment will
+  # fail with at WorkflowTasks_Step2_Execution stage.
+  #
+  SSLRootCertificate: |
+    -----BEGIN CERTIFICATE-----
+    MIIDkzCCAnsCFAssmtxDWGdHkFbWo1liA2qWRRTsMA0GCSqGSIb3DQEBCwUAMIGF
+    MQswCQYDVQQGEwJJRDEQMA4GA1UECAwHSmFrYXJ0YTEWMBQGA1UEBwwNU291dGgg
+    SmFrYXJ0YTEMMAoGA1UECgwDRGV2MQ4wDAYDVQQLDAVDbG91ZDEQMA4GA1UEAwwH
+    b2NwLmxhbjEcMBoGCSqGSIb3DQEJARYNYWRtaW5Ab2NwLmxhbjAeFw0yMjAxMDMx
+    MDI4NDFaFw0zMjAxMDExMDI4NDFaMIGFMQswCQYDVQQGEwJJRDEQMA4GA1UECAwH
+    SmFrYXJ0YTEWMBQGA1UEBwwNU291dGggSmFrYXJ0YTEMMAoGA1UECgwDRGV2MQ4w
+    DAYDVQQLDAVDbG91ZDEQMA4GA1UEAwwHb2NwLmxhbjEcMBoGCSqGSIb3DQEJARYN
+    YWRtaW5Ab2NwLmxhbjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALWq
+    o0etes/AWvV3UtNuKjNLwgGSmPGaFK4ozInuUeip6NEAcch2p0pHfyxJ29q53W1k
+    IkpCIbGSxIYk7bmgN7rwLhDgkfLfiqu6PDk1yeEXouTffBvNm4m2O9Ru12eSD26k
+    DCAY+xinZB4wG67v50t6tj7VP1UxAlVPTFHqE648zbrO3p9BvHtiJ2x0IPgEyzVY
+    O35e2XMWzzH/WJ0xyjc3DfZMYBzrhSVVN++LUyik4a1v/jYs0Py5ZaZxz8nbAB0u
+    QZ1Ev/l1w9Sbi6Z2BkzuYgzgK7H3t1VhVXCLLsMfBRD651z6dRAhAkEBRQfloRvz
+    NIFrZwELvg9G8KxMd0kCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAOfo4GE0IDEzJ
+    Be4+iPhIflBnB3ywFGsmrzsMank3I0MDoEafwj1Zj1uY8SedtdNjZQuWB9eDTuNY
+    T7sAPwRD4o3fdTZW7d1XMwSJ4DUdDKG1o9gqlF9K7b0uiJrisDRbQOeVmcAMYXtM
+    Pd5S6ALcMohbiOqbN58LPDu8LH6rM6MkJablUXTI3WS08ghhLGq7AERlLGCh4rfK
+    SJBs86RHcEfASsJ3F66mhVNEgCbSNI/RAQP43bRtI56hh9ceELUNRDcywT0kPaoT
+    9ghSgMEcomH7zC1IjeFsXm/BN57696Om5tqkoh3LsLlrrc3C296cHVYg42loeTYh
+    3xRL6T+mWQ==
+    -----END CERTIFICATE-----
+
+resource_registry:
+  OS::TripleO::NodeTLSCAData: /usr/share/openstack-tripleo-heat-templates/puppet/extraconfig/tls/ca-inject.yaml

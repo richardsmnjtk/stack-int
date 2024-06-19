@@ -1,0 +1,2073 @@
+rm ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml
+less ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+vim ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+vim ~/templates/01_overcloud_deployment_node/baremetal-hci.yaml 
+ls 01_overcloud_deployment_node/
+ls 01_overcloud_deployment_node/nic-configs/
+pwd
+cd /usr/share/openstack-tripleo-heat-templates/tools/
+ls
+python3 convert_heat_nic_config_to_ansible_j2.py --stack <overcloud --networks_file /home/stack/templates/00_overcloud_deployment_data//network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute-hci.yaml
+python3 convert_heat_nic_config_to_ansible_j2.py --stack overcloud --networks_file /home/stack/templates/00_overcloud_deployment_data//network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute-hci.yaml
+python3 convert_heat_nic_config_to_ansible_j2.py --networks_file /home/stack/templates/00_overcloud_deployment_data//network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute-hci.yaml
+python3 convert_heat_nic_config_to_ansible_j2.py --stack overcloud --networks_file /home/stack/templates/00_overcloud_deployment_data/network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute-hci.yaml
+python3 convert_heat_nic_config_to_ansible_j2.py --stack overcloud --networks_file /home/stack/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute-hci.yaml
+python3 convert_heat_nic_config_to_ansible_j2.py --networks_file /home/stack/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute-hci.yaml
+cd templates/
+ls
+cat overcloud/36-fixed-ip-vips.yaml 
+cat 00_overcloud_deployment_data/network-data.yaml.OLD 
+lsl
+ls
+ll 01_overcloud_deployment_node/
+pwd
+source ~/stackrc 
+openstack baremetal node list
+cat overcloud/34-ips-from-pool-all.yaml 
+:q
+vim roles_data.yaml 
+openstack overcloud node provision --stack overcloud --network-config  \
+watch 'openstack baremetal node list; metalsmith list'
+watch -n1 'openstack baremetal node list; metalsmith list'
+watch 'openstack baremetal node list; metalsmith list'
+ls -l /var/lib/ironic/images/
+sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
+openstack baremetal introspection abort new-controller-0
+openstack baremetal introspection abort new-compute-0
+openstack baremetal introspection abort new-ceph-0
+watch 'openstack baremetal node list; metalsmith list'
+openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' new-controller-0
+watch 'openstack baremetal node list; metalsmith list'
+cat ~/nodes/controller.yaml 
+vim ~/nodes/controller.yaml 
+vim ~/nodes/compute.yaml 
+vim ~/nodes/ceph.yaml 
+watch 'openstack baremetal node list; metalsmith list'
+cat ~/nodes/controller.yaml 
+cd
+grep -rin undercloud.conf 
+grep -rin efi undercloud.conf 
+watch 'openstack baremetal node list; metalsmith list'
+openstack baremetal introspection abort new-controller-0
+openstack baremetal node manage new-controller-0
+openstack baremetal node delete new-controller-0
+time openstack undercloud install
+sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
+sudo ll /var/log/containers/ironic-inspector/
+sudo ls -lh /var/log/containers/ironic-inspector/
+sudo ll /var/log/containers/ironic-inspector/dnmasq.log
+sudo tail -f /var/log/containers/ironic-inspector/dnmasq.log
+sudo tail -f /var/log/containers/ironic-inspector/dnsmasq.log
+sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
+openstack baremetal introspect abort new-controller-0
+openstack baremetal node manage new-controller-0
+openstack baremetal node abort new-controller-0
+openstack baremetal node manage new-controller-0
+sudo -i
+openstack baremetal introspect abort new-controller-0
+openstack baremetal node abort new-controller-0
+openstack baremetal node list
+openstack baremetal node manage new-controller-0
+openstack baremetal node list
+watch openstack baremetal node list
+openstack baremetal introspect abort new-controller-0
+openstack baremetal node abort new-controller-0
+openstack baremetal node manage new-controller-0
+openstack baremetal node delete new-controller-0
+vim ~/nodes/controller.yaml 
+vim ~/nodes/ceph.yaml 
+openstack baremetal node list
+cat ~/nodes/ceph.yaml 
+cp ~/nodes/ceph.yaml ~/nodes/hci.yaml
+vim ~/nodes/hci.yaml 
+openstack baremetal node list
+openstack baremetal node delete new-ceph-0
+openstack baremetal node list
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6246 power status
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6251 power status
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6252 power status
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6253 power status
+openstack baremetal node list
+ll
+cd templates/
+ll
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml 
+cp01_overcloud_deployment_node/baremetal-deployment.yaml 01_overcloud_deployment_node/baremetal-hci.yaml 
+cp 01_overcloud_deployment_node/baremetal-deployment.yaml 01_overcloud_deployment_node/baremetal-hci.yaml 
+vim 01_overcloud_deployment_node/baremetal-hci.yaml 
+openstack baremetal node list
+ls
+;s 00_overcloud_deployment_data/
+ls 00_overcloud_deployment_data/
+ll 01_overcloud_deployment_node/
+ll 02_overcloud_deployment/
+ll 01_overcloud_deployment_node/
+pwd
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node show {} -c name -c properties -f json
+openstack baremetal node list
+watch 'openstack baremetal node list; metalsmith list'
+openstack baremetal node list
+openstack baremetal node manage new-controller-0
+openstack baremetal node maintenance set new-controller-0
+openstack baremetal node manage new-controller-0
+openstack baremetal node list
+openstack baremetal node manage new-controller-0
+openstack baremetal node manage new-hci-0
+openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' new-controller-0
+openstack baremetal node maintenance unset new-controller-0
+openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' new-controller-0
+openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' new-hci-0
+watch 'openstack baremetal node list; metalsmith list'
+vim 01_overcloud_deployment_node/baremetal-hci.yaml 
+vim ~/nodes/hci.yaml 
+vim ~/nodes/controller.yaml 
+watch 'openstack baremetal node list; metalsmith list'
+openstack baremetal node list
+openstack baremetal node delete new-controller-0
+openstack baremetal node delete new-hci-0
+openstack baremetal node list
+time openstack undercloud install
+openstack baremetal node list
+cat ~/undercloud.conf 
+openstack subnet list 
+openstack subnet show ctlplane-subnet
+openstack subnet --help
+openstack subnet set --help
+sudo podman ps
+ls -l /var/lib/ironic/images/
+ls -l /var/lib/ironic/httpboot
+sudo rm -rf ~/images/
+mkdir /home/stack/images
+cd /home/stack/images
+sudo dnf install rhosp-director-images-uefi-x86_64 rhosp-director-images-ipa-x86_64
+for i in /usr/share/rhosp-director-images/ironic-python-agent-latest.tar /usr/share/rhosp-director-images/overcloud-hardened-uefi-full-latest.tar; do tar -xvf $i; done
+openstack overcloud image upload --image-path /home/stack/images/
+ls -l /var/lib/ironic/images/
+ls -lh /var/lib/ironic/images/
+ls -l /var/lib/ironic/httpboot
+openstack baremetal driver list
+vim ~/nodes/controller.yaml 
+watch 'openstack baremetal node list; metalsmith list'
+cp ~/nodes/ceph.yaml ~/nodes/hci.yaml 
+vim ~/nodes/hci.yaml
+node list; metalsmith list'
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node show {} -c name -c properties -f json
+cd ~/templates/
+ll
+cat roles_data_hci.yaml 
+ll 00_overcloud_deployment_data/
+ll 01_overcloud_deployment_node/
+cat 01_overcloud_deployment_node/baremetal-deployment.yaml 
+vim 01_overcloud_deployment_node/baremetal-hci.yaml 
+less /home/stack/templates/01_overcloud_deployment_node/nic-configs/hci.yaml
+less /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute-hci.yaml
+vim 01_overcloud_deployment_node/baremetal-hci.yaml 
+ls /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+ls -lh /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+vim 01_overcloud_deployment_node/baremetal-hci.yaml 
+ls ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml
+rm -rf ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml
+less 01_overcloud_deployment_node/nic-configs/controller.j2 
+vim 01_overcloud_deployment_node/nic-configs/controller.j2 
+vim 01_overcloud_deployment_node/nic-configs/compute-hci.
+vim 01_overcloud_deployment_node/nic-configs/compute-hci.j2 
+vim 01_overcloud_deployment_node/nic-configs/controller.j2 
+vim /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+vim 01_overcloud_deployment_node/nic-configs/controller.j2 
+diff 01_overcloud_deployment_node/nic-configs/controller.j2 01_overcloud_deployment_node/nic-configs/compute-hci.j2 
+vim /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+vim 01_overcloud_deployment_node/nic-configs/compute-hci.j2 
+vim 01_overcloud_deployment_node/nic-configs/controller.j2 
+vim 01_overcloud_deployment_node/nic-configs/compute-hci.j2 
+vim 01_overcloud_deployment_node/nic-configs/controller.j2 
+diff 01_overcloud_deployment_node/nic-configs/controller.j2 01_overcloud_deployment_node/nic-configs/compute-hci.j2 
+vim 01_overcloud_deployment_node/nic-configs/compute-hci.j2 
+watch 'openstack baremetal node list; metalsmith list'
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.5
+watch 'openstack baremetal node list; metalsmith list'
+metalsmith list
+openstack stack list
+openstack baremetal node list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node show {} -c name -c properties -f json
+vim ~/templates/01_overcloud_deployment_node/nic-configs/controller.j2 
+cp ~/templates/01_overcloud_deployment_node/nic-configs/controller.j2 ~/templates/01_overcloud_deployment_node/nic-configs/controller.j2.bak
+vim ~/templates/01_overcloud_deployment_node/nic-configs/controller.j2 
+vim /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack baremetal node list
+openstack baremetal node manage new-controller-0
+openstack baremetal node manage new-hci-0
+openstack baremetal node delete new-controller-0
+vim ~/nodes/controller.yaml 
+openstack baremetal node list
+vim /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack baremetal node list
+vim /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+sudo vim /root/.ansible_async
+openstack baremetal node list
+vim ~/nodes/controller.yaml 
+cd /usr/share/openstack-tripleo-heat-templates/tools/
+python3 convert_heat_nic_config_to_ansible_j2.py --stack overcloud --networks_file /home/stack/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute-hci.yaml
+python3 convert_heat_nic_config_to_ansible_j2.py [--stack overcloud | --standalone] --networks_file /home/stack/templates/00_overcloud_deployment_data//network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute-hci.yaml
+python3 convert_heat_nic_config_to_ansible_j2.py --standalone --networks_file /home/stack/templates/00_overcloud_deployment_data//network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute-hci.yaml
+ll /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+python3 convert_heat_nic_config_to_ansible_j2.py --standalone --networks_file /home/stack/templates/00_overcloud_deployment_data//network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/controller.yaml 
+cd ~/templates/
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+source ~/stackrc 
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+vim /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+vim /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack baremetal node set --property capabilities=boot_mode:uefi,boot_option:local,node:new-hci-0,profile:hci,cpu_vt:true,cpu_aes:true,cpu_hugepages:true,cpu_hugepages_1g:true new-hci-0
+openstack baremetal node set --property capabilities=boot_mode:uefi,boot_option:local,node:new-controller-0,profile:control,cpu_vt:true,cpu_aes:true,cpu_hugepages:true,cpu_hugepages_1g:true new-controller-0
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+vim ~/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack baremetal allocation list
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack stack list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node import ~/nodes/hci.yaml
+openstack overcloud node introspect --all-manageable --provide
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack baremetal node list
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node introspect --all-manageable --provide
+openstack overcloud node list
+
+openstack overcloud node delete new-controller-0
+openstack overcloud node abort new-controller-0
+openstack baremetal node abort new-controller-0
+openstack baremetal node maintenance set new-controller-0
+openstack baremetal node manage new-controller-0
+openstack baremetal node delete new-controller-0
+openstack baremetal node abort new-controller-0
+openstack baremetal node manage new-controller-0
+openstack baremetal node delete new-controller-0
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node introspect --all-manageable --provide
+openstack overcloud node import ~/nodes/hci.yaml
+openstack overcloud node list
+openstack baremetal node list
+openstack baremetal node manage new-hci-0
+openstack baremetal node delete new-hci-0
+openstack overcloud node import ~/nodes/hci.yaml
+openstack baremetal node list
+openstack overcloud node introspect --all-manageable --provide
+openstack overcloud node introspect abort new-hci-0
+openstack baremetal node abort new-hci-0
+openstack baremetal node manage new-hci-0
+openstack baremetal node abort new-hci-0
+openstack baremetal node manage new-hci-0
+openstack baremetal node delete new-hci-0
+openstack overcloud node import ~/nodes/hci.yaml
+openstack overcloud node introspect --all-manageable --provide
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack baremetal port list
+openstack port list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+vim /usr/share/ansible/tripleo-playbooks/cli-overcloud-node-network-config.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' new-controller-0
+openstack baremetal node manage new-hci-0
+openstack baremetal node manage new-controller-0
+openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' new-controller-0
+openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' new-hci-0
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack baremetal allocation list
+openstack overcloud node introspect --all-manageable --provide
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node introspect --all-manageable --provide
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' {}
+openstack overcloud node introspect --all-manageable --provide
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+sudo reboot
+ip a
+ls
+ll
+sudo -i
+lsblk
+8
+lsblk
+source ~/stackrc 
+openstack service list
+ip a
+ls
+ll
+sudo -i
+vim ~/templates/01_overcloud_deployment_node/nic-configs/ceph.j2
+vim ~/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+ip a
+source ~/stackrc 
+openstack service list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+openstack baremetal node list
+ls
+ll
+ll images/
+lsblk
+df -h
+lsblk
+df -h
+source ~/stackrc 
+openstack service list
+openstack server list
+openstack baremetal node list
+openstack image list
+ls images/
+ls -l /var/lib/ironic/images/
+openstack network list
+openstack subnet list
+ls
+vim ~/nodes/controller.yaml 
+vim ~/nodes/compute.yaml 
+vim ~/nodes/controller.yaml 
+vim ~/nodes/compute.yaml 
+vim ~/nodes/controller.yaml 
+vim ~/nodes/ceph.yaml 
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node import ~/nodes/compute.yaml
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack baremetal node list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list
+openstack overcloud node introspect abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node manage nah-ceph-0
+openstack baremetal node list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list
+openstack baremetal node abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node manage nah-ceph-0
+openstack baremetal node list
+openstack baremetal introspection abort new-controller-0
+openstack baremetal introspection abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node manage nah-ceph-0
+openstack baremetal introspection abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node delete nah-ceph-0
+openstack baremetal node list
+openstack baremetal introspection abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node delete nah-ceph-0
+
+openstack baremetal node list
+openstack baremetal node abort nah-ceph-0
+openstack baremetal introspection abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node abort nah-ceph-0
+openstack baremetal introspection abort nah-ceph-0
+openstack baremetal node abort nah-ceph-0
+openstack baremetal node provide nah-ceph-0
+openstack baremetal introspection abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node delete nah-ceph-0
+openstack baremetal node maintenance nah-ceph-0
+openstack baremetal node maintenance set nah-ceph-0
+openstack baremetal node list
+openstack baremetal introspection abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node abort nah-ceph-0
+openstack baremetal node list
+openstack baremetal node abort nah-ceph-0
+openstack baremetal node delete nah-ceph-0
+openstack baremetal node list
+vim ~/nodes/ceph.yaml 
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack baremetal node list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list
+watch 'openstack baremetal node list; metalsmith list'
+openstack baremetal node list; metalsmith list
+openstack port list
+validation run --group pre-introspection
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node show {} -c name -c properties -f json
+openstack baremetal node show <node>  -f json -c properties | jq -r .properties.capabilities
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node show {} -c name -c properties -f json | jq -r .properties.capabilities
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+less ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+ls ~/templates/02_overcloud_deployment/
+ls -l ~/templates/02_overcloud_deployment/
+less ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml 
+less /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml
+less /home/stack/templates/01_overcloud_deployment_node/baremetal-deployment.yaml 
+vim /home/stack/templates/01_overcloud_deployment_node/baremetal-deployment.yaml 
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+less /home/stack/templates/01_overcloud_deployment_node/nic-configs/ceph.j2
+ls /home/stack/templates/01_overcloud_deployment_node/nic-configs/ceph.j2
+ls /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+ls -lh /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+python3 convert_heat_nic_config_to_ansible_j2.py --standalone --networks_file /home/stack/templates/00_overcloud_deployment_data//network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.yaml 
+ls -lh /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+cd /usr/share/openstack-tripleo-heat-templates/tools/
+python3 convert_heat_nic_config_to_ansible_j2.py --standalone --networks_file /home/stack/templates/00_overcloud_deployment_data/network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.yaml 
+ls -lh /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+python3 convert_heat_nic_config_to_ansible_j2.py --standalone --networks_file /home/stack/templates/00_overcloud_deployment_data/network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/ceph.yaml
+python3 convert_heat_nic_config_to_ansible_j2.py --standalone --networks_file /home/stack/templates/00_overcloud_deployment_data/network_data.yaml /home/stack/templates/01_overcloud_deployment_node/nic-configs/ceph-storage.yaml
+cd
+less /home/stack/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+less /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+less /home/stack/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+vi NOTES.txt
+ls
+less output.log 
+rm -rf output.log 
+ll
+rm -rf ansible.log 
+ls
+less install-undercloud.log 
+ls
+lsblk
+ll
+ls
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+ls /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+ls -lh /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+mv /home/stack/templates/01_overcloud_deployment_node/nic-configs/ceph-storage.j2 /home/stack/templates/01_overcloud_deployment_node/nic-configs/ceph-storage.j2
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+ls /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+ls -lh /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+cat NOTES.txt 
+grep -rin EC2MetadataIp /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+grep -rin EC2MetadataIp /home/stack/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+grp -rin tenant_vlan_id /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+grep -rin tenant_vlan_id /home/stack/templates/01_overcloud_deployment_node/nic-configs/
+grep -rin tenant_vlan_id /home/stack/templates/02_overcloud_deployment/
+grep -rin tenant_vlan_id /home/stack/templates/01_overcloud_deployment_node/
+grep -rin tenant_vlan_id /home/stack/templates/00_overcloud_deployment_data/
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/ceph.j2 
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/ceph.j2 
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/ceph.j2 
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/ceph.j2
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+cd basic-templates/
+ll
+ls
+vum 36-fixed-ip-vips.yaml 
+vim 36-fixed-ip-vips.yaml 
+cd
+ll
+cd templates/
+ll
+cd overcloud/
+ls
+vim 34-ips-from-pool-all.yaml 
+openstack baremetal node list; metalsmith list
+ls ~/templates/00_overcloud_deployment_data/
+less ~/templates/00_overcloud_deployment_data/network_data.yaml 
+less ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml 
+less ~/templates/01_overcloud_deployment_node/nic-configs/controller.j2
+less ~/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+vim ~/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+vim ~/templates/01_overcloud_deployment_node/nic-configs/ceph.j2 
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+vim ~/templates/01_overcloud_deployment_node/nic-configs/ceph.j2 
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' {}
+openstack baremetal node list; metalsmith list
+watch openstack baremetal node list; metalsmith list
+openstack baremetal node list; metalsmith list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node provide {}
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' {}
+watch openstack baremetal node list; metalsmith list
+vim ~/templates/01_overcloud_deployment_node/nic-configs/ceph.j2 
+vim ~/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+vim ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+vim ~/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node provide {}
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices"}]' {}
+watch openstack baremetal node list; metalsmith list
+openstack baremetal introspection abort nah-ceph-0
+openstack baremetal introspection abort nah-controller-0
+openstack baremetal introspection abort nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack baremetal introspection abort nah-compute-0
+openstack baremetal node abort nah-ceph-0
+openstack baremetal node abort nah-controller-0
+openstack baremetal node abort nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+vim ~/nodes/controller.yaml 
+vim ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+vim ~/nodes/ceph.yaml 
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node import ~/nodes/compute.yaml
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack baremetal node list; metalsmith list
+ls
+cd ..
+ls
+ls 01_overcloud_deployment_node/
+ls -lh 01_overcloud_deployment_node/
+ls -lh 00_overcloud_deployment_data/
+ls -lh 02
+ls -lh 02_overcloud_deployment/
+ls -lh 01_overcloud_deployment_node/
+vim 01_overcloud_deployment_node/initial-ceph.conf
+ls -lh 01_overcloud_deployment_node/
+vim 01_overcloud_deployment_node/osd_spec.yaml
+openstack baremetal node list; metalsmith list
+ls -lh 01_overcloud_deployment_node/
+ls -lh 00_overcloud_deployment_data/
+ls
+cp roles_data.yaml 00_overcloud_deployment_data/
+ls -lh 00_overcloud_deployment_data/
+vim 00_overcloud_deployment_data/roles_data.yaml 
+tree .
+ls 00_overcloud_deployment_data/
+ls 01_overcloud_deployment_node/
+ls -LH 01_overcloud_deployment_node/
+ls -lh 01_overcloud_deployment_node/
+cat 01_overcloud_deployment_node/osd_spec.yaml 
+cat 01_overcloud_deployment_node/initial-ceph.conf 
+vim 01_overcloud_deployment_node/initial-ceph.conf 
+vim 01_overcloud_deployment_node/osd_spec.yaml 
+less /usr/share/openstack-tripleo-heat-templates/environments/cephadm/ceph-mds.yaml
+cat /usr/share/openstack-tripleo-heat-templates/environments/cephadm/ceph-mds.yaml
+vim overcloud/52-ceph-config.yaml
+vim overcloud/50-ceph-ansible.yaml 
+cat overcloud/50-ceph-ansible.yaml 
+cat /usr/share/openstack-tripleo-heat-templates/environments/cephadm/ceph-mds.yaml
+cat overcloud/18-extraconfig.yaml 
+grep -rin CinderEnable overcloud/
+ls overcloud/
+cat overcloud/overcloud-answers.yaml 
+vim 48-overcloud_storage_config.yaml
+ls 01_overcloud_deployment_node/
+ls -lh 01_overcloud_deployment_node/
+cat 01_overcloud_deployment_node/osd_spec.yaml 
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/container_image_prepare.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml
+ls ~
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+cat ~/containers-prepare-parameter.yaml 
+vim ~/containers-prepare-parameter.yaml 
+sudo podman images
+sudo podman login
+sudo podman loginls
+ll
+less 
+less ~/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+ls
+sudo tail -f /root/container_image_prepare.log
+sudo -i
+source ~/stackrc 
+openstack tripleo container image list
+df -h
+sudo tail -f /root/container_image_prepare.log
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+ssh heat-admin@10.2.3.2
+vim .ssh/known_hosts
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.5
+ssh heat-admin@10.2.3.8
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.5
+ssh heat-admin@10.2.3.8
+ssh heat-admin@10.2.3.2
+cd templates/
+ll
+pwd
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+vim 01_overcloud_deployment_node/initial-ceph.conf 
+cat overcloud/34-ips-from-pool-all.yaml 
+vim 01_overcloud_deployment_node/initial-ceph.conf 
+vim 01_overcloud_deployment_node/crush_hierarchy.yaml
+vim 01_overcloud_deployment_node/ceph_spec.yaml 
+vim 01_overcloud_deployment_node/crush_hierarchy.yaml
+sudo podman exec -it $(sudo podman ps -qa -f name=mon) /bin/bash
+ssh heat-admin@10.2.3.2
+sudo -i
+cd lin
+cd templates/
+ls
+lslls
+ls
+mv 48-overcloud_storage_config.yaml overcloud/
+sudo podman login
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+source ~/stackrc 
+ansible -i $(which tripleo-ansible-inventory) overcloud -m shell -a 'sudo yum repolist' -b
+sudo podman pull director-17.ctlplane.overcloud.kinton.lab:8787/rhceph/rhceph-5-rhel8:latest
+podman pull director-17.ctlplane.overcloud.kinton.lab:8787/rhceph/rhceph-5-rhel8:latest
+sudo podman images
+sudo podman ps
+sudo podman images
+ls
+cd
+ls
+ls basic-templates/
+cd templates/
+ls
+cd overcloud/
+ls
+vim overcloud-answers.yaml 
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+cd ..
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+openstack overcloud ceph spec -o /tmp/ceph_spec.yaml
+ls 01_overcloud_deployment_node/
+ls 02_overcloud_deployment/
+openstack overcloud ceph spec -o /tmp/ceph_spec.yaml
+less /usr/share/ansible/tripleo-playbooks/cli-deployed-ceph.yaml
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+ls 01_overcloud_deployment_node/
+ls
+ll -h
+rm install-undercloud.log 
+rm output.log 
+ls -lh
+cat roles_data.yaml 
+openstack baremetal node list; metalsmith list
+ls
+ll
+ll 02_overcloud_deployment/
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+tree .
+cat 01_overcloud_deployment_node/initial-ceph.conf
+cat 02_overcloud_deployment/overcloud_deployed_nodes.yaml 
+ll
+ls overcloud/
+cat overcloud/overcloud-answers.yaml 
+cat 00_overcloud_deployment_data/network_data.yaml 
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+df -h
+ll
+ll ~
+tree 
+vim ~/containers-prepare-parameter.yaml 
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+grep -rin ceph.*image /usr/share/openstack-tripleo-heat-templates/
+ls 
+sudo openstack tripleo container image prepare   -e /home/stack/containers-prepare-parameters.yaml
+ls /home/stack/containers-prepare-parameters.yaml
+ls /home/stack/containers-prepare-parameter.yaml 
+sudo openstack tripleo container image prepare   -e /home/stack/containers-prepare-parameter.yaml
+vim ~/containers-prepare-parameter.yaml 
+sudo openstack tripleo container image prepare -e /home/stack/containers-prepare-parameter.yaml
+vim ~/containers-prepare-parameter.yaml 
+sudo openstack tripleo container image prepare -e /home/stack/containers-prepare-parameter.yaml
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+ceph orch status
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+ceph orch status
+openstack server list
+source ~/stackrc 
+openstack server list
+openstack baremetal node list; metalsmith list
+lsblk
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+lsblk
+openstack server list
+tree 
+openstack overcloud ceph deploy --config 01_overcloud_deployment_node/initial-ceph.conf --osd-spec 01_overcloud_deployment_node/osd_spec.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+less 01_overcloud_deployment_node/initial-ceph.conf
+less 01_overcloud_deployment_node/osd_spec.yaml 
+less 02_overcloud_deployment/overcloud_deployed_ceph.yaml
+less 02_overcloud_deployment/overcloud_deployed_nodes.yaml
+less 01_overcloud_deployment_node/initial-ceph.conf
+cat 01_overcloud_deployment_node/initial-ceph.conf
+vim 01_overcloud_deployment_node/ceph-spec.yaml
+less 01_overcloud_deployment_node/osd_spec.yaml
+cat 01_overcloud_deployment_node/osd_spec.yaml
+vim 01_overcloud_deployment_node/ceph-spec.yaml
+mv 01_overcloud_deployment_node/ceph-spec.yaml 01_overcloud_deployment_node/ceph_spec.yaml
+ll 01_overcloud_deployment_node/
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' {}
+openstack baremetal node list; metalsmith list
+watch openstack baremetal node list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node provider {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node provide {}
+openstack baremetal node list; metalsmith list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+ls
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+openstack baremetal node list
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node import ~/nodes/compute.yaml
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list
+ls
+ls ~/nodes/
+openstack baremetal introspection data save nah-controller-0 | jq "."
+openstack baremetal introspection data save nah-controller-0 | jq "." > ~/nodes/introspect-controller.json
+openstack baremetal introspection data save nah-compte-0 | jq "." > ~/nodes/introspect-compute.json
+openstack baremetal introspection data save nah-compute-0 | jq "." > ~/nodes/introspect-compute.json
+openstack baremetal introspection data save nah-ceph-0 | jq "." > ~/nodes/introspect-ceph.json
+ls ~/nodes/
+openstack baremetal introspection data save nah-ceph-0 | jq ".inventory.disks"
+less 01_overcloud_deployment_node/initial-ceph.conf 
+less 01_overcloud_deployment_node/ceph_spec.yaml 
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack baremetal node list; metalsmith list
+vim ~/.ssh/known_hosts
+openstack baremetal node list; metalsmith list
+ssh heat-admin@10.2.3.8
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+sudo podman images
+sudo openstack tripleo container image prepare -e /home/stack/containers-prepare-parameter.yaml
+sudo podman images
+sudo openstack tripleo container image prepare -e /home/stack/containers-prepare-parameter.yaml
+sudo openstack tripleo container image prepare -e /home/stack/containers-prepare-parameter.yaml --force
+cat ~/containers-prepare-parameter.yaml 
+sudo openstack tripleo container image prepare -e /home/stack/containers-prepare-parameter.yaml
+source ~/stackrc 
+openstack tripleo container image prepare -e /home/stack/containers-prepare-parameter.yaml
+sudo -i
+tmux
+lsblk
+source ~/stackrc 
+cd templates/
+openstack tripleo container image prepare -e /home/stack/containers-prepare-parameter.yaml
+vim /home/stack/.tripleo/environments
+ls /home/stack/containers-prepare-parameter.yaml
+cat /home/stack/containers-prepare-parameter.yaml
+history | grep image
+sudo -i
+history | grep container
+sudo openstack tripleo container image prepare   -e /home/stack/containers-prepare-parameter.yaml
+sudo podman images
+ip a
+lsblk
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+source ~/stackrc 
+sudo openstack tripleo container image prepare   -e /home/stack/containers-prepare-parameter.yaml
+openstack baremetal node list; metalsmith list
+openstack baremetal node show nah-ceph-0 --fit
+cat ~/nodes/ceph.yaml 
+sudo -i
+openstack tripleo container image list
+sudo openstack tripleo container image prepare -e /home/stack/containers-prepare-parameter.yaml
+cat ~/containers-prepare-parameter.yaml 
+openstack baremetal node list; metalsmith list
+cat 02_overcloud_deployment/overcloud_deployed_nodes.yaml
+cd templates/
+cat 02_overcloud_deployment/overcloud_deployed_nodes.yaml
+ls
+cd basic-templates/
+ls
+openstack baremetal node list; metalsmith list
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+y
+openstack baremetal node list; metalsmith list
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+ls
+cd 
+ls
+cd templates/
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+openstack baremetal node list; metalsmith list
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list; metalsmith list
+openstack port list
+openstack network list
+openstack baremetal node list; metalsmith list
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list; metalsmith list
+
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+openstack baremetal node list; metalsmith list
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node import ~/nodes/compute.yaml
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_hci.yaml /home/stack/templates/01_overcloud_deployment_node/baremetal-hci.yaml --debug
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack baremetal node list; metalsmith list
+ssh heat-admin@10.2.3.2
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' {}
+openstack baremetal node list; metalsmith list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node provide {}
+sudo vim /usr/lib/python3.9/site-packages/barbicanclient/__init__.py
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node show {} -c name -c properties -f json | jq -r .properties.capabilities
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node mange {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list; metalsmith list
+cd
+ls
+cd nodes/
+ls
+cat *yaml
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node import ~/nodes/compute.yaml
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal introspection data save nah-ceph-0 | jq ".inventory.disks"
+openstack baremetal node list; metalsmith list
+openstack baremetal introspection data save nah-compute-0 | jq ".inventory.disks"
+openstack baremetal introspection data save nah-ceph-0 | jq ".inventory.disks"
+openstack baremetal node delete nah-ceph-0
+vim ceph.yaml 
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal introspection data save nah-ceph-0 | jq ".inventory.disks"
+cd ../templates/
+ls
+cat overcloud/overcloud-answers.yaml 
+cat /home/stack/basic-templates/52-ceph-config.yaml
+cat overcloud/overcloud-answers.yaml 
+cat /home/stack/basic-templates/50-ceph-ansible.yaml 
+ls
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+openstack port list
+openstack network list
+openstack subnetw list
+openstack subnet list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack baremetal node list; metalsmith list
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+cat 01_overcloud_deployment_node/crush_hierarchy.yaml
+cat 01_overcloud_deployment_node/ceph_spec.yaml
+cat 00_overcloud_deployment_data/network_data.yaml
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml
+cat 01_overcloud_deployment_node/ceph_spec.yaml 
+cat 01_overcloud_deployment_node/crush_hierarchy.yaml 
+cat 01_overcloud_deployment_node/osd_spec.yaml 
+grep -rin fsid *
+grep -rin fsid 01_overcloud_deployment_node/*
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml
+ip a
+sudo podman ps
+sudo -i
+ip -4 a
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+ls
+cd overcloud-deploy/
+ls
+ls overcloud/
+ls
+cd
+ls
+ls images/
+source ~/stackrc 
+ls
+ll
+cat NOTES.txt 
+cd basic-templates/
+ls
+cat overcloud-answers.yaml 
+cat 52-ceph-config.yaml
+vim 52-ceph-config.yaml
+vim 53-ceph-disk-layout.yaml
+cat 53-ceph-disk-layout.yaml
+cat overcloud-answers.yaml 
+cat 00-node-info.yaml 
+vim 00-node-info.yaml 
+vim 04-custom-hostnames.yaml 
+vim 00-node-info.yaml 
+vim 04-custom-hostnames.yaml 
+openstack baremetal node list; metalsmith list
+tree
+cd
+ls
+cd overcloud-deploy/
+tree
+ls
+ls overcloud/
+cd
+ls
+ls templates/
+tree templates/
+openstack baremetal node list; metalsmith list
+history 
+cat .bashrc 
+echo "export HISTFILESIZE=" >> ~/.bashrc
+echo "export HISTSIZE=" >> ~/.bashrc
+cat .bashrc 
+sudo -i
+tmux
+cd templates/
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+mkdir log_mistral
+tmux attach
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+ssh heat-admin@10.2.3.2
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug > ~/full_output_ceph_deploy.log
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+ls
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug > ~/full_output_ceph_deploy.log
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+ssh heat-admin@10.2.3.2
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+openstack baremetal node list; metalsmith list
+openstack network list
+openstack port list
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml
+cd templates/
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+ls
+bash ~/templates/deploy.sh 
+ls /home/stack/container_image_prepare.yaml
+ls
+
+bash ~/templates/deploy.sh 
+ping 10.8.60.191
+2
+ping 10.8.60.192
+ping 10.8.60.193
+ping 10.8.60.194
+ping 10.8.60.199
+
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices"}]' {}
+ping 10.8.60.221
+ping 10.8.60.225
+ping 10.8.60.226
+ping 10.8.60.227
+ping 10.8.60.224
+ping 10.8.60.181
+ping 10.8.60.187
+ping 10.8.60.188
+ping 10.8.60.189
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node provide {}
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+sudo -i
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+time openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config ~/templates/01_overcloud_deployment_node/initial-ceph.conf --ceph-spec ~/templates/01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy ~/templates/01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data ~/templates/00_overcloud_deployment_data/roles_data.yaml --network-data ~/templates/00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output ~/templates/02_overcloud_deployment/overcloud_deployed_ceph.yaml ~/02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+time openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config ~/templates/01_overcloud_deployment_node/initial-ceph.conf --ceph-spec ~/templates/01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy ~/templates/01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data ~/templates/00_overcloud_deployment_data/roles_data.yaml --network-data ~/templates/00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output ~/templates/02_overcloud_deployment/overcloud_deployed_ceph.yaml ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+time openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config ~/templates/01_overcloud_deployment_node/initial-ceph.conf --crush-hierarchy ~/templates/01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data ~/templates/00_overcloud_deployment_data/roles_data.yaml --network-data ~/templates/00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output ~/templates/02_overcloud_deployment/overcloud_deployed_ceph.yaml ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+ls
+cat deploy.sh 
+bash ~/templates/deploy.sh 
+cat deploy.sh 
+vim /usr/share/openstack-tripleo-heat-templates/environments/cephadm/cephadm.yaml
+vim ~/templates/02_overcloud_deployment/overcloud_deployed_ceph.yaml
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack stack list
+openstack overcloud delete -b ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --stack overcloud --all --network-ports
+openstack overcloud delete -b ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --all --network-ports
+openstack overcloud delete -b ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --networks-file ~/templates/00_overcloud_deployment_data/network_data.yaml --network-ports
+openstack overcloud delete -b ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --networks-file ~/templates/00_overcloud_deployment_data/network_data.yaml --network-ports overcloud
+openstack baremetal allocation list
+openstack network list
+openstack port list
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+openstack network list
+openstack port list
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml 
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+time openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config ~/templates/01_overcloud_deployment_node/initial-ceph.conf --crush-hierarchy ~/templates/01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data ~/templates/00_overcloud_deployment_data/roles_data.yaml --network-data ~/templates/00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output ~/templates/02_overcloud_deployment/overcloud_deployed_ceph.yaml ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+bash ~/templates/deploy.sh 
+vim /home/stack/overcloud-deploy/overcloud/config-download/ansible-playbook-command.sh
+bash ~/templates/deploy.sh 
+cat ~/overcloudrc 
+bash ~/templates/deploy.sh 
+vim ~/templates/deploy.sh 
+bash ~/templates/deploy.sh 
+cat /etc/rhosp-release 
+bash ~/templates/deploy.sh 
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack overcloud delete -b ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --networks-file ~/templates/00_overcloud_deployment_data/network_data.yaml --network-ports overcloud
+cd templates/
+ls
+ll
+rm -rf log_mistral/
+ls
+ll
+cd overcloud/
+ls
+mkdir nodes
+mv nodes-c* nodes
+mv introspection_c* nodes/
+ll
+ls
+rm -rf output.log 
+rm -rf data-ceph0.json 
+ll
+ls
+cd ..
+ls
+cd 02_overcloud_deployment/
+ll
+cat ver
+cat overcloud_storage_config.yaml 
+cat overcloud_deployed_vips.yaml 
+cd ..
+cd 01_overcloud_deployment_node/
+ll
+cat initial-ceph.conf 
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.9
+ssh heat-admin@10.2.3.8
+ssh heat-admin@10.2.3.2
+ls
+cat ceph_spec.yaml 
+ls
+cd ..
+ls
+ll
+ls 02_overcloud_deployment/
+-lh 02_overcloud_deployment/
+ls -lh 02_overcloud_deployment/
+pwd
+cat overcloud_storage_config.yaml
+ls -lh 02_overcloud_deployment/overcloud_storage_config.yaml
+cat 02_overcloud_deployment/overcloud_storage_config.yaml
+cat 02_overcloud_deployment/overcloud_customizations.yaml
+vi 02_overcloud_deployment/overcloud_customizations.yaml
+ll 02_overcloud_deployment/
+ls ~
+ls
+ll
+pwd
+ls 00_overcloud_deployment_data/
+ls
+cd overcloud/
+cd ..
+cat overcloud-answers.yaml 
+vim overcloud-answers.yaml 
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+pwd
+vim overcloud-answers.yaml 
+ls
+ls overcloud
+cd overcloud/
+ls
+cat overcloud-answers.yaml 
+pwd
+ls ~/templates/overcloud/10-inject-trust-anchor.yaml
+cat ~/templates/overcloud/10-inject-trust-anchor.yaml
+ls /usr/share/openstack-tripleo-heat-templates/puppet/extraconfig/tls/ca-inject.yaml
+grep -rin Rear ~/templates/roles_data.yaml 
+ls /usr/share/openstack-tripleo-heat-templates/roles_data.yaml
+vim /usr/share/openstack-tripleo-heat-templates/roles_data.yaml
+cp /usr/share/openstack-tripleo-heat-templates/roles_data.yaml ~/templates/roles_data.yaml
+ls ~/templates/roles_data.yaml
+vim ~/templates/roles_data.yaml
+grep -rin Rear ~/templates/roles_data.yaml 
+openstack baremetal node list; metalsmith list
+source ~/stackrc 
+ansible -i $(which tripleo-ansible-inventory) overcloud -bm shell -a 'sudo ip a s br-ex'
+ansible -i $(which tripleo-ansible-inventory) overcloud -bm shell -a 'sudo ip link'
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.5
+ssh heat-admin@10.2.3.9
+ssh heat-admin@10.2.3.8
+ls
+cd ..
+grep -rin 199 00_overcloud_deployment_data/
+grep -rin 199 01_overcloud_deployment_node/
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml
+ssh heat-admin@10.2.3.8
+watch openstack baremetal node list
+watch -n1 'openstack baremetal node list; metalsmith list'
+openstack baremetal node abort nah-ceph-0
+openstack baremetal introspection abort nah-ceph-0
+watch -n1 'openstack baremetal node list; metalsmith list'
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+ls
+cd 00_overcloud_deployment_data/
+ll
+diff network_data.yaml network-data.yaml.OLD 
+ll
+cd ..
+ls
+mv roles_data.yaml 00_overcloud_deployment_data/
+cd 00_overcloud_deployment_data/
+ll
+cd ..
+vim deploy.sh 
+openstack port list
+openstack network list
+cd 01_overcloud_deployment_node/
+ll
+ls
+vim baremetal-deployment.yaml 
+openstack baremetal introspection data save nah-ceph-0 | jq ".inventory.disks"
+vim baremetal-deployment.yaml 
+openstack baremetal introspection data save nah-ceph-0 | jq ".interface"
+openstack baremetal introspection data save nah-ceph-0 | jq ".interfaces"
+openstack overcloud node introspect --provide nah-ceph-0
+openstack baremetal introspection data save nah-ceph-0 | jq ".interface"
+openstack baremetal introspection data save nah-ceph-0 | jq ".interfaces"
+openstack baremetal introspection data save nah-ceph-0 | jq "."
+openstack baremetal introspection data save nah-ceph-0 | jq ".all_interfaces"
+vim baremetal-deployment.yaml 
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+watch -n1 'openstack baremetal node list; metalsmith list'
+vim ~/.ssh/known_hosts
+watch -n1 'openstack baremetal node list; metalsmith list'
+ssh heat-admin@10.2.3.8
+grep -rin bridge_name .
+vim ./nic-configs/controller.yaml
+sed -i "s/bridge_name/br-ex/" ~/templates/overcloud/nic-configs/ceph-storage.yaml
+sed -i "s/bridge_name/br-ex/" ~/templates/overcloud/nic-configs/compute.yaml 
+sed -i "s/bridge_name/br-ex/" ~/templates/overcloud/nic-configs/controller.yaml
+grep -rin bridge_name .
+ls ~/templates/overcloud/nic-configs/controller.yaml
+sed -i "s/bridge_name/br-ex/g" ~/templates/overcloud/nic-configs/controller.yaml
+grep -rin bridge_name .
+vim~/templates/overcloud/nic-configs/controller.yaml
+vim ~/templates/overcloud/nic-configs/controller.yaml
+ls
+pwd
+grep -rin bridge_name ~/templates/overcloud/nic-configs/
+sed -i "s/bridge_name/br-ex/" ~/templates/overcloud/nic-configs/controller.yaml.bak 
+sed -i "s/bridge_name/br-ex/" ~/templates/overcloud/nic-configs/compute-hci.yaml 
+sed -i "s/bridge_name/br-ex/" ~/templates/overcloud/nic-configs/compute-sole.yaml 
+sed -i "s/bridge_name/br-ex/" ~/templates/overcloud/nic-configs/compute-dedicated.yaml 
+grep -rin bridge_name ~/templates/overcloud/nic-configs/
+ls
+ls nic-configs/
+vim baremetal-deployment.yaml 
+pwd
+sed -i "s/bridge_name/br-ex/" ~/templates/01_overcloud_deployment_node/nic-configs/*
+grep -rin bridge_name ~/templates/overcloud/nic-configs/
+watch -n1 'openstack baremetal node list; metalsmith list'
+echo "export HISTFILESIZE=" >> ~/.bashrc
+echo "export HISTSIZE=" >> ~/.bashrc
+watch -n1 'openstack baremetal node list; metalsmith list'
+cat ~/.bashrc
+vim ~/.bashrc
+sudo -i
+echo "" > ~/.ssh/known_hosts
+ssh heat-admin@10.2.3.8
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.5
+ssh heat-admin@10.2.3.8
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.8
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.8
+ssh heat-admin@10.2.3.2
+cd ..
+ls
+cat ~/templates/02_overcloud_deployment/overcloud_storage_config.yaml 
+cat ~/templates/02_overcloud_deployment/overcloud_customizations.yaml
+grep -rin fsid .
+grep -rin "50a145bb" 01_overcloud_deployment_node/
+grep -rin "50a145bb" 0
+grep -rin "50a145bb" 01_overcloud_deployment_node/*
+cat ./02_overcloud_deployment/overcloud_deployed_ceph.yaml
+sudo -i
+ls
+cd overcloud/
+ls
+cd ..
+ls
+cd 01_overcloud_deployment_node/
+ls
+cd ../overcloud/
+vim /home/stack/set-root-password.yaml
+ls
+mv set-root-password.yaml .
+lssssss
+mv /home/stack/set-root-password.yaml .
+ls
+cd ../01_overcloud_deployment_node/
+ls
+vim baremetal-deployment.yaml 
+watch -n1 'openstack baremetal node list; metalsmith list'
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+echo "" > ~/.ssh/known_hosts
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.8
+cd ..
+vim deploy.sh 
+cat 02_overcloud_deployment/overcloud_deployed_ceph.yaml 
+vim deploy.sh 
+ssh heat-admin@10.2.3.8
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.8
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.5
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.5
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.5
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.5
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.5
+ssh heat-admin@10.2.3.2
+time openstack undercloud install
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+watch -n1 'openstack baremetal node list; metalsmith list'
+openstack baremetal node list; metalsmith list
+ssh heat-admin@10.2.3.2
+vim .ssh/known_hosts
+ssh heat-admin@10.2.3.2
+openstack baremetal node list; metalsmith list
+openstack subnet list
+openstack port list
+openstack network list
+ssh heat-admin@10.2.3.2
+tmux attach
+ls
+du -sh /home/stack/
+openstack baremetal introspection data save nah-ceph-0 | jq "." > data-introspection-ceph0.json
+mv data-introspection-ceph0.json templates/
+ls images/
+openstack baremetal node list; metalsmith list
+ls
+cd templates/
+ls
+ll
+cat data-introspection-ceph0.json | jq ".inventory.disks"
+vim overcloud/52-ceph-config.yaml
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node show {} -c name -c properties -f json | jq -r .properties.capabilities
+ssh heat-admin@10.2.3.2
+scp -r heat-admin@10.2.3.2:/var/tmp/sosreport-nah-controller-0-2023-05-16-dzkftsb.tar.xz /tmp
+scp -r heat-admin@10.2.3.2:~/sosreport-nah-controller-0-2023-05-16-dzkftsb.tar.xz /tmp
+ls /tmp/
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+tmux attach
+openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config 01_overcloud_deployment_node/initial-ceph.conf --ceph-spec 01_overcloud_deployment_node/ceph_spec.yaml --crush-hierarchy 01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data 00_overcloud_deployment_data/roles_data.yaml --network-data 00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output 02_overcloud_deployment/overcloud_deployed_ceph.yaml 02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+tmux attach
+ls
+cd overcloud/
+ls
+cat 18-extraconfig.yaml 
+cat 30-network-isolation.yaml 
+cat 32-network-environment.yaml 
+grep -rin dns *yaml
+cat 02-custom-domain.yaml 
+ls
+cd
+cd templates/
+ls
+cp overcloud/deploy.sh .
+cat deploy.sh 
+vim deploy.sh 
+cat deploy.sh 
+ls ~/templates/00_overcloud_deployment_data/network_data.yaml
+ls ~/templates/roles_data.yaml
+
+tmux attach
+vim deploy.sh 
+tmux attach
+ls
+ls overcloud
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml 
+ls /home/stack/templates/overcloud/set-root-password.yaml
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml 
+tmux attach
+ls
+cd overcloud/
+cd ..
+cat deploy.sh 
+cat ~/templates/02_overcloud_deployment/overcloud_storage_config.yaml
+cat ~/templates/02_overcloud_deployment/overcloud_customizations.yaml
+ls
+cat ~/templates/02_overcloud_deployment/overcloud_storage_config.yaml
+cat deploy.sh 
+cat ~/templates/overcloud/18-extraconfig.yaml
+ls
+cat 02_overcloud_deployment/overcloud_customizations.yaml 
+cat 02_overcloud_deployment/overcloud_deployed_ceph.yaml 
+tmux attach
+cat ~/undercloud.conf 
+cat 02_overcloud_deployment/overcloud_customizations.yaml 
+tmux attach
+cat overcloud/set-root-password.yaml 
+tmux attach
+cat ~/overcloudrc 
+tmux attach
+cat 02_overcloud_deployment/overcloud_customizations.yaml 
+vim 02_overcloud_deployment/overcloud_customizations.yaml 
+hostnamectl 
+cat ~/undercloud.conf 
+sudo podman iamges
+sudo podman iamge
+sudo podman [s
+sudo podman ps
+tmux attach
+cat ~/undercloud.conf 
+vim overcloud-answers.yaml 
+vim deploy.sh 
+tmux attach
+cat ~/overcloudrc 
+source ~/overcloudrc 
+openstack compute service list
+cat deploy.sh 
+ls
+diff -y overcloud-answers.yaml overcloud/overcloud-answers.yaml 
+ls
+ll
+mv roles_data_hci.yaml 00_overcloud_deployment_data/
+ls 00_overcloud_deployment_data/
+ll 01_overcloud_deployment_node/
+source ~/stackrc 
+openstack hypervisor list
+source ~/overcloudrc 
+openstack hypervisor list
+ls 02_overcloud_deployment/
+ls -lh 02_overcloud_deployment/
+tmux attach
+vim overcloud/18-extraconfig.yaml 
+tmux attach
+vim overcloud/18-extraconfig.yaml 
+tmux attach
+cat 18
+cat overcloud/18-extraconfig.yaml 
+vim deploy.sh 
+tmux attach
+openstack baremetal node list; metalsmith list
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+ls
+tree
+vim baremetal-deployment.yaml
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml
+ls
+ls ~
+cd
+ls nodes/
+ll -h nodes/
+tmux attach
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+ls
+less full_output_ceph_deploy.log 
+rm full_output_ceph_deploy.log 
+ls
+cat NOTES.txt 
+ll
+sudo podman images
+tmux attach
+tmux
+cat undercloud.conf 
+vim undercloud.conf 
+tmux attach
+sudo podman images
+df -h
+sudo podman ps
+sudo -i
+cd nodes/
+cat introspect-compute.json 
+cat ~/nodes/introspect-compute.json | jq ".all_interfaces"
+watch -n1 'openstack baremetal node list; metalsmith list; openstack allocation list'
+source ~/stackrc 
+openstack baremetal allocation list
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+echo "" > ~/.ssh/known_hosts
+ssh heat-admin@10.2.3.2
+echo "" > ~/.ssh/known_hosts
+ssh heat-admin@10.2.3.2
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+ssh heat-admin@10.2.3.2
+ls
+sudo podman ps
+sudo -i
+cd templates/
+ll
+cd 00_overcloud_deployment_data/
+ls
+ll
+vim network_data.yaml 
+vim network-data.yaml.OLD 
+rm network-data.yaml.OLD 
+ll
+vim vip_data.yaml 
+cd ..
+01_overcloud_deployment_node/
+ls
+cd 01_overcloud_deployment_node/
+ll
+vim baremetal-deployment.yaml 
+cd ~/nodes/
+ll
+cat controller.yaml 
+cat ceph.yaml 
+openstack overcloud node import ~/nodes/controller.yaml
+source ~/stackrc 
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+vim compute.yaml 
+openstack overcloud node import ~/nodes/compute.yaml
+openstack baremetal node list; metalsmith list
+openstack baremetal node abort nah-compute-0
+openstack baremetal node delete nah-compute-0
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6253 power status
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6252 power status
+openstack overcloud node import ~/nodes/compute.yaml
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list
+openstack baremetal introspection data save nah-compute-0 | jq "." > ~/nodes/data-introspection-compute.json
+ls
+ll
+openstack baremetal introspection data save nah-compute-0 | jq "." > ~/nodes/introspection-compute.json
+openstack baremetal node manage nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+cat ~/nodes/data-introspection-compute.json | jq ".inventory.disks"
+cat ~/nodes/data-introspection-compute.json | jq ".all_interfaces"
+cat ~/nodes/data-introspection-compute.json
+cat ~/nodes/data-introspection-compute.json | jq ".all_interfaces"
+cat ~/nodes/data-introspection-controller.jsn | jq ".all_interfaces"
+cat ~/nodes/introspection-compute.json | jq ".all_interfaces"
+ls
+ll
+openstack baremetal introspection data save nah-compute-0 | jq "." > ~/nodes/introspect-compute.json
+rm -rf data-introspection-compute.json introspection-compute.json 
+cat ~/nodes/introspect-compute.json | jq ".all_interfaces"
+ll
+cd ~/templates/01_overcloud_deployment_node/
+vim baremetal-deployment.yaml 
+tmux attach
+tmux
+tmux attach
+vim baremetal-deployment.yaml 
+openstack port list
+tmux attach
+vim baremetal-deployment.yaml 
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+vim baremetal-deployment.yaml 
+openstack baremetal node list; metalsmith list
+openstack baremetal node manage nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --stack overcloud --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml ~/templates/00_overcloud_deployment_data/vip_data.yaml
+openstack overcloud node provision --stack overcloud --network-config --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node delete nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack overcloud delete -b ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --networks-file ~/templates/00_overcloud_deployment_data/network_data.yaml --network-ports overcloud
+cd ~/nodes/
+vim compute.yaml 
+openstack overcloud node import ~/nodes/compute.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node abort nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack baremetal node manage nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack baremetal introspection abort nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack baremetal introspection abort nah-compute-0
+openstack baremetal node abort nah-compute-0
+openstack baremetal node manage nah-compute-0
+openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices"}]' nah-compute-0
+openstack baremetal node manage nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack baremetal node abort nah-compute-0
+openstack baremetal node manage nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node abort nah-compute-0
+openstack baremetal node manage nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack baremetal introspection abort nah-compute-0
+openstack baremetal node manage nah-compute-0
+openstack baremetal node abort nah-compute-0
+openstack baremetal node delete nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack baremetal node maintenance set true nah-compute-0
+openstack baremetal node maintenance set nah-compute-0
+openstack baremetal node abort nah-compute-0
+openstack baremetal node delete nah-compute-0
+cat ~/nodes/compute.yaml
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6252 power status
+openstack overcloud node import ~/nodes/compute.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal introspection abort nah-compute-0
+openstack baremetal node maintenance set nah-compute-0
+openstack baremetal node delete nah-compute-0
+sudo -i
+openstack overcloud
+openstack stack list
+openstack network list
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --yes --stack overcloud ~/templates/00_overcloud_deployment_data/vip_data.yaml --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml
+openstack overcloud node provision --yes --stack overcloud --network-config ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml
+ping 10.2.3.2
+ping 10.2.3.5
+openstack overcloud node unprovision --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack overcloud node unprovision --yes --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+ping 10.2.3.5
+ping 10.2.3.2
+openstack overcloud node provision --yes --stack overcloud --network-config ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml
+source ~/stackrc 
+cd templates/
+echo "" > ~/.ssh/known_hosts
+ll
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+ssh heat-admin@10.2.3.2
+ssh heat-admin@10.2.3.6
+ssh heat-admin@10.2.3.5
+ssh heat-admin@10.2.3.9
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+ping 10.2.3.8
+ping 10.2.3.6
+ping 10.2.3.8
+ping 10.2.3.6
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml 
+ping 10.2.3.6
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml 
+vim /home/stack/templates/01_overcloud_deployment_node/nic-configs/compute.j2 
+tmux attach
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+vi vi 01_overcloud_deployment_node/baremetal-deployment.yaml 
+vi 01_overcloud_deployment_node/baremetal-deployment.yaml 
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+vi 01_overcloud_deployment_node/baremetal-deployment.yaml 
+vim ~/nodes/controller.yaml 
+openstack overcloud node import ~/nodes/controller.yaml
+openstack baremetal node manage nah-controller-0
+openstack baremetal node delete nah-controller-0
+openstack overcloud node import ~/nodes/controller.yaml
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+openstack baremetal node manage nah-controller-0
+openstack baremetal node delete nah-controller-0
+vim ~/nodes/controller.yaml 
+vi 01_overcloud_deployment_node/baremetal-deployment.yaml 
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node introspect --all-manageable --provide
+ll
+cd 02_overcloud_deployment/
+ls
+vim overcloud_deployed_networks.yaml 
+cd ..
+vim 01_overcloud_deployment_node/
+cd 01_overcloud_deployment_node/
+ll
+vim baremetal-deployment.yaml 
+openstack baremetal node manage nah-controller-0
+openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]' nah-controller-0
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+ls
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node provide {}
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+cd ..
+ls
+vim baremetal_prov.sh
+bash ~/templates/baremetal_prov.sh 
+openstack overcloud node unprovision --yes --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml 
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+bash ~/templates/baremetal_prov.sh 
+ssh heat-admin@10.2.3.42
+ssh heat-admin@10.2.3.49
+ssh heat-admin@10.2.3.48
+ssh heat-admin@10.2.3.49
+ssh heat-admin@10.2.3.42
+ls
+ll
+ceph_deploy.sh
+vi ceph_deploy.sh
+ll ~
+source ~/overcloudrc 
+openstack compute service list
+source ~/overcloudrc 
+openstack compute service list
+source ~/overcloudrc 
+openstack compute service list
+cat ~/overcloudrc 
+ssh heat-admin@10.2.3.42
+ls
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml 
+echo "" > ~/.ssh/known_hosts
+ssh heat-admin@10.2.3.42
+ssh heat-admin@10.2.3.49
+ssh heat-admin@10.2.3.48
+ssh heat-admin@10.2.3.42
+ssh heat-admin@10.2.3.48
+ls
+cat ~/overcloudrc 
+source ~/overcloudrc 
+openstack compute service list
+ssh heat-admin@10.2.3.42
+cd templates/
+ls
+cd 01_overcloud_deployment_node/
+ls
+ll
+cp baremetal-deployment.yaml baremetal-basic.yaml
+ll
+vi baremetal-deployment.yaml 
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+vi baremetal-deployment.yaml 
+bash ~/templates/baremetal_destroy.sh 
+source ~/stackrc 
+bash ~/templates/baremetal_destroy.sh 
+ip a
+vi baremetal-deployment.yaml 
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+echo "" > ~/.ssh/known_hosts
+ssh heat-admin@10.2.3.42
+ssh heat-admin@10.2.3.43
+ssh heat-admin@10.2.3.44
+ssh heat-admin@10.2.3.42
+cd templates/
+ls
+vim 01_overcloud_deployment_node/baremetal-
+vim 01_overcloud_deployment_node/baremetal-deployment.yaml 
+cat ~/templates/baremetal_destroy.sh 
+vim ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+source ~/stackrc 
+openstack baremetal node list; metalsmith list; openstack baremetal allocation list
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+echo "" > ~/.ssh/known_hosts
+ls
+ls overcloud
+ll polpo
+ll
+ssh heat-admin@10.2.3.42
+ssh heat-admin@10.2.3.43
+ssh heat-admin@10.2.3.44
+ssh heat-admin@10.2.3.41
+ssh heat-admin@10.2.3.42
+ssh heat-admin@10.2.3.43
+ssh heat-admin@10.2.3.44
+openstack overcloud node unprovision --yes --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+echo "" > ~/.ssh/known_hosts
+openstack baremetal node list; metalsmith list
+openstack baremetal node manage nah-compute-0
+openstack baremetal node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices"}]' nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node provide {}
+openstack baremetal node list; metalsmith list
+openstack overcloud network vip provision --yes --stack overcloud ~/templates/00_overcloud_deployment_data/vip_data.yaml --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml
+openstack overcloud node provision --yes --stack overcloud --network-config ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml
+openstack overcloud node unprovision --yes --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack overcloud delete -b ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --networks-file ~/templates/00_overcloud_deployment_data/network_data.yaml --network-ports overcloud
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --yes --stack overcloud ~/templates/00_overcloud_deployment_data/vip_data.yaml --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml
+openstack overcloud node provision --yes --stack overcloud --network-config ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml
+openstack overcloud node unprovision --yes --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack overcloud node provision --yes --stack overcloud --network-config ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml
+openstack overcloud node unprovision --yes --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack overcloud delete -b ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --networks-file ~/templates/00_overcloud_deployment_data/network_data.yaml --network-ports overcloud
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --yes --stack overcloud ~/templates/00_overcloud_deployment_data/vip_data.yaml --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml
+openstack overcloud node provision --yes --stack overcloud --network-config ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml --debug --output ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml
+openstack overcloud node unprovision --yes --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+ls
+rm data-introspection-ceph0.json 
+vim baremetal_destroy.sh
+time openstack overcloud ceph deploy --yes --stack overcloud --cluster ceph --config ~/templates/01_overcloud_deployment_node/initial-ceph.conf --crush-hierarchy ~/templates/01_overcloud_deployment_node/crush_hierarchy.yaml --roles-data ~/templates/00_overcloud_deployment_data/roles_data.yaml --network-data ~/templates/00_overcloud_deployment_data/network_data.yaml --container-image-prepare ~/containers-prepare-parameter.yaml --output ~/templates/02_overcloud_deployment/overcloud_deployed_ceph.yaml ~/templates/02_overcloud_deployment/overcloud_deployed_nodes.yaml --debug
+cat deploy.sh 
+openstack hypervisor list
+bash ~/templates/deploy.sh 
+ls
+bash ~/templates/baremetal_destroy.sh 
+openstack baremetal node list; metalsmith list
+bash ~/templates/baremetal_prov.sh 
+bash ~/templates/ceph_deploy.sh 
+bash ~/templates/deploy.sh 
+bash ~/templates/baremetal_destroy.sh 
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node delete {}
+openstack baremetal node list; metalsmith list
+ls
+cd overcloud/
+ll
+ls
+cd ..
+ls
+cd
+ls
+cd nodes/
+ll
+mv controller.yaml controllerA.yaml 
+cp controllerA.yaml controllerB.yaml 
+cp controllerA.yaml controllerC.yaml 
+vim controllerA.yaml 
+bash ~/templates/baremetal_prov.sh 
+bash ~/templates/baremetal_destroy.sh 
+bash ~/templates/baremetal_prov.sh 
+bash ~/templates/ceph_deploy.sh 
+bash ~/templates/baremetal_destroy.sh 
+openstack baremetal node list; metalsmith list
+cat ~/templates/baremetal_prov.sh 
+openstack port list
+bash [200~~/templates/baremetal_prov.sh~
+bash ~/templates/baremetal_prov.sh~
+bash ~/templates/baremetal_prov.sh
+bash ~/templates/ceph_deploy.sh 
+bash ~/templates/deploy.sh 
+cat ~/templates/baremetal_destroy.sh 
+bash ~/templates/baremetal_destroy.sh 
+openstack port list
+ssh heat-admin@10.2.3.42
+ssh heat-admin@10.2.3.48
+ssh heat-admin@10.2.3.43
+ssh heat-admin@10.2.3.44
+ssh heat-admin@10.2.3.48
+cd templates/
+ls
+cat deploy.sh 
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+source ~/stackrc 
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+ssh heat-admin@10.2.3.44
+grep overcloud_domain_name stack/undercloud.conf -B 3
+grep overcloud_domain_name ~/undercloud.conf -B 3
+cat ~/templates/overcloud/18-extraconfig.yaml 
+cat deploy.sh 
+cat ~/templates/02_overcloud_deployment/overcloud_customizations.yaml
+grep overcloud_domain_name ~/undercloud.conf -B 3
+vim ~/templates/02_overcloud_deployment/overcloud_customizations.yaml
+ssh heat-admin@10.2.3.44
+echo "" > ~/.ssh/known_hosts
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+cat ~/nodes/compute.yaml
+vim ~/nodes/compute.yaml
+openstack overcloud node import ~/nodes/compute.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node maintenance set nah-compute-0
+openstack baremetal node delete nah-compute-0
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node manage {}
+openstack baremetal node list; metalsmith list
+vim ~/nodes/compute.yaml
+openstack overcloud node import ~/nodes/compute.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list
+openstack overcloud network provision --output ~/templates/02_overcloud_deployment/overcloud_deployed_networks.yaml ~/templates/00_overcloud_deployment_data/network_data.yaml
+openstack overcloud network vip provision --yes --stack overcloud ~/templates/00_overcloud_deployment_data/vip_data.yaml --output ~/templates/02_overcloud_deployment/overcloud_deployed_vips.yaml
+ls
+cd templates/
+tmux attach
+tmux
+vim ~/nodes/controller.yaml 
+vim ~/nodes/compute.yaml 
+vim ~/nodes/ceph.yaml 
+cat ~/nodes/*yaml
+vim ~/nodes/compute.yaml 
+ls ~
+openstack overcloud node import ~/nodes/controller.yaml
+openstack overcloud node import ~/nodes/compute.yaml
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list
+tmux attach
+openstack baremetal introspection data save nah-compute-0 | jq "." > ~/nodes/introspect-compute.json
+openstack baremetal introspection data save nah-controller-0 | jq "." > ~/nodes/introspect-controller.json 
+openstack baremetal introspection data save nah-ceph-0 | jq "." > ~/nodes/introspect-ceph.json 
+cat ~/nodes/introspect-compute.json | jq ".all_interfaces"
+cat ~/nodes/introspect-controller.json | jq ".all_interfaces"
+cat ~/nodes/introspect-ceph.json | jq ".all_interfaces"
+tmux attach
+openstack baremetal node list; metalsmith list
+openstack overcloud node unprovision --yes --stack overcloud --all --network-ports ~/templates/01_overcloud_deployment_node/baremetal-deployment.yaml
+openstack baremetal node list; metalsmith list
+openstack baremetal node manage nah-controller-0
+openstack overcloud node import ~/nodes/controller.yaml
+openstack baremetal node manage nah-controller-0
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list
+tmux attach
+ping 103.148.190.38
+ping 103.148.190.31
+ping 103.148.190.1
+ping 103.148.190.31
+ping 103.148.190.38
+tmux attach
+ls
+cat deploy.sh 
+cat overcloud/44-rhsm.yaml 
+cat deploy.sh 
+openstack hypervisor list
+source ~/overcloudrc 
+openstack hypervisor list
+source ~/overcloudrc 
+openstack hypervisor list
+openstack compute service list
+openstack network agent list
+openstack volume service list
+tmux attach
+cd ~/nodes/
+lls
+ls
+ll
+vim controllerA.yaml 
+vim controllerB.yaml 
+vim controllerC.yaml 
+ll
+openstack overcloud node import ~/nodes/controllerA.yaml
+source ~/stackrc 
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6252 power status
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6253 power status
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6254 power status
+ipmitool -I lanplus -U stack -P stack -H 10.8.60.9 -p 6255 power status
+openstack overcloud node import ~/nodes/controllerA.yaml
+openstack overcloud node import ~/nodes/controllerB.yaml
+openstack overcloud node import ~/nodes/controllerC.yaml
+openstack overcloud node import ~/nodes/compute.yaml
+openstack overcloud node import ~/nodes/ceph.yaml
+openstack baremetal node list; metalsmith list
+openstack overcloud node introspect --all-manageable --provide
+openstack baremetal node list; metalsmith list
+openstack baremetal introspection data save nah-controller-0 | jq "." > ~/nodes/introspect-controller0.json
+openstack baremetal introspection data save nah-controller-1 | jq "." > ~/nodes/introspect-controller1.json
+openstack baremetal introspection data save nah-controller-2 | jq "." > ~/nodes/introspect-controller2.json
+openstack baremetal node list; metalsmith list
+openstack baremetal node list -c UUID -f value | xargs -I {} openstack baremetal node show {} -c name -c properties -f json
+openstack baremetal node list; metalsmith list
+tmux attach
+cd 
+cd templates/
+ls
+vim overcloud/18-extraconfig.yaml 
+tmux attach
+sudo -i
+source ~/stackrc 
+watch -n1 'openstack baremetal node list; metalsmith list; openstack baremetal allocation list'
+ssh heat-admin@10.2.3.42
+ssh heat-admin@10.2.3.43
+ssh heat-admin@10.2.3.44
+ssh heat-admin@10.2.3.48
+cd templates/
+cat 01_overcloud_deployment_node/ceph_spec.yaml 
+vim ceph_deploy.sh 
+ssh heat-admin@10.2.3.44
+ssh heat-admin@10.2.3.45
+cd templates/
+cd overcloud/
+ll
+ls
+tmux
+grep overcloud_domain_name ~/undercloud.conf -B 3
+cd ..
+cat ~/templates/02_overcloud_deployment/overcloud_customizations.yaml 
+sudo podman images
+cd ..
+cd templates/
+cat ~/templates/02_overcloud_deployment/overcloud_customizations.yaml 
+grep overcloud_domain_name ~/undercloud.conf -B 3
+tmux attach
+ll
+cat overcloud-answers.yaml 
+cat deploy.sh 
+cat overcloud-answers.yaml 
+cat overcloud/18-extraconfig.yaml 
+cat 02_overcloud_deployment/overcloud_customizations.yaml 
+vim 02_overcloud_deployment/overcloud_customizations.yaml 
+tmux attach
+ll
+sudo chmod +x *sh
+ll
+cd
+ll
+ll NOTES.txt 
+rm NOTES.txt 
+ll
+ll nodes/
+rm nodes/introspect-controller.json 
+cd nodes/
+ll
+mkdir data-introspection
+mv introspect-c* data-introspection/
+ll
+cd
+ll
+sudo -i
+df -h
+ls
+ll
+cat undercloud.conf 
+source ~/stackrc 
+openstack baremetal node list; metalsmith list
+cd templates/
+ll
+cd 02_overcloud_deployment/
+ls
+ll
+vim overcloud_storage_config.yaml 
+vim overcloud_deployed_vips.yaml 
+vim overcloud_deployed_networks.yaml 
+vim /usr/share/openstack-tripleo-heat-templates/network/deployed_networks.yaml
+grep -rin ExternalAllocationPools .
+grep -rin ExternalAllocationPools /etc/puppet/
+sudo grep -rin ExternalAllocationPools /etc/puppet/
+cat overcloud_customizations.yaml 
+cat ~/.ssh/id_rsa.pub 
+ssh ubuntu@10.8.60.56
+ls /usr/share/openstack-tripleo-heat-templates/environments/enable-designate.yaml
+cat /usr/share/openstack-tripleo-heat-templates/environments/enable-designate.yaml 
+cd ..
+vim deploy.sh 
+tmux attach
+vim ~/.ssh/known_hosts
+ssh ubuntu@10.8.60.56
+ssh centos@10.8.60.56
+tmux attach
+ll
+ls overcloud
+vim overcloud-answers.yaml 
+vim deploy.sh 
+tmux attach
+openstack service list
+source ~/overcloudrc 
+openstack service list
+source ~/stackrc 
+#ansible -i ~/overcloud-deploy/overcloud/tripleo-ansible-inventory.yaml 
+ansible -i $(which tripleo-ansible-inventory) all -b -m shell -a 'sudo uptime'
+ansible -i `which tripleo-ansible-inventory` overcloud -m shell -a 'uptime'
+which tripleo-ansible-inventory
+tripleo-ansible-inventory --static-yaml-inventory ~/inventory.yaml --stack <STACK_NAME>
+ --ansible_ssh_user heat-admin
+tripleo-ansible-inventory --static-yaml-inventory ~/inventory.yaml --stack overcloud --ansible_ssh_user heat-admin
+tripleo-ansible-inventory --list
+source ~/stackrc 
+tripleo-ansible-inventory --list
+openstack overcloud status
+openstack stack list
+openstack overcloud status --stack my-deployment
+cd $HOME/overcloud-deploy/overcloud/config-download/overcloud
+pwd
+ls
+cat tripleo-ansible-inventory.yaml 
+cp tripleo-ansible-inventory.yaml .
+ls ~
+cp tripleo-ansible-inventory.yaml ~
+ls ~
+tripleo-ansible-inventory --static-yaml-inventory ~/tripleo-ansible-inventory.yaml 
+ansible -i /bin/tripleo-ansible-inventory -m ping all
+tripleo-ansible-inventory --os-cloud=undercloud --static-yaml-inventory  ~/ansible_inventory.yaml
+ansible -i ~/ansible_inventory.yaml -m ping all
+ansible -i ~/tripleo-ansible-inventory.yaml -m ping all
+ls
+cd
+ls
+ansible -i ~/tripleo-ansible-inventory.yaml Controller -b -m shell -a 'sudo uptime'
+ansible -i ~/tripleo-ansible-inventory.yaml overcloud --m shell -a 'sudo hostnamectl'
+ansible -i ~/tripleo-ansible-inventory.yaml overcloud -bm shell -a 'sudo hostnamectl'

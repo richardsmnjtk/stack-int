@@ -1,0 +1,16 @@
+resource_registry:
+  OS::TripleO::Services::OctaviaApi: /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-api-container-puppet.yaml
+  OS::TripleO::Services::OctaviaHousekeeping: /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-housekeeping-container-puppet.yaml
+  OS::TripleO::Services::OctaviaHealthManager: /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-health-manager-container-puppet.yaml
+  OS::TripleO::Services::OctaviaWorker: /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-worker-container-puppet.yaml
+  OS::TripleO::Services::OctaviaDeploymentConfig: /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-deployment-config.yaml
+
+parameter_defaults:
+    NeutronEnableForceMetadata: true
+
+    # This flag enables internal generation of certificates for communication
+    # with amphorae. Use OctaviaCaCert, OctaviaCaKey, OctaviaCaKeyPassphrase,
+    # OctaviaClient and OctaviaServerCertsKeyPassphrase cert to configure
+    # secure production environments.
+    OctaviaGenerateCerts: true
+

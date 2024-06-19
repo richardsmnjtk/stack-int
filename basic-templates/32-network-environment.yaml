@@ -1,0 +1,90 @@
+#This file is an example of an environment file for defining the isolated
+#networks and related parameters.
+resource_registry:
+  # Network Interface templates to use (these files must exist). You can
+  # override these by including one of the net-*.yaml environment files,
+  # such as net-bond-with-vlans.yaml, or modifying the list here.
+  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/basic-templates/nic-configs/controller.yaml
+  OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/basic-templates/nic-configs/compute.yaml
+  OS::TripleO::ComputeHCI::Net::SoftwareConfig: /home/stack/basic-templates/nic-configs/compute-hci.yaml
+  OS::TripleO::CephStorage::Net::SoftwareConfig: /home/stack/basic-templates/nic-configs/ceph-storage.yaml
+
+parameter_defaults:
+  NetworkDeploymentActions: ['CREATE','UPDATE']
+  NeutronPublicInterface: nic3
+  HypervisorNeutronPublicInterface: nic3
+  NeutronEnableIsolatedMetadata: true
+
+  # This section is where deployment-specific configuration is done
+  # CIDR subnet mask length for provisioning network
+  ControlPlaneSubnetCidr: '24'
+  # Gateway router for the provisioning network (or Undercloud IP)
+  ControlPlaneDefaultRoute: 10.1.1.11
+  EC2MetadataIp: 10.1.1.11  # Generally the IP of the Undercloud
+
+  # Customize the IP subnets to match the local environment
+  InternalApiNetCidr: '172.24.1.0/24'
+  # Customize the IP range to use for static IPs and VIPs
+  InternalApiAllocationPools: [{'start': '172.24.1.60', 'end': '172.24.1.99'}]
+  # Customize the VLAN ID to match the local environment
+  InternalApiNetworkVlanID: 10
+  InternalApiMtu: 9000
+  
+  TenantNetCidr: '172.24.2.0/24'
+  TenantAllocationPools: [{'start': '172.24.2.60', 'end': '172.24.2.99'}]
+  TenantNetworkVlanID: 20
+  TenantMtu: 9000
+
+  StorageNetCidr: '172.24.3.0/24'
+  StorageAllocationPools: [{'start': '172.24.3.60', 'end': '172.24.3.99'}]
+  StorageNetworkVlanID: 30
+  StorageMtu: 9000
+
+  StorageMgmtNetCidr: '172.24.4.0/24'
+  StorageMgmtAllocationPools: [{'start': '172.24.4.60', 'end': '172.24.4.99'}]
+  StorageMgmtNetworkVlanID: 40
+  StorageMgmtMtu: 9000
+
+  ManagementNetCidr: '172.24.5.0/24'
+  ManagementAllocationPools: [{'start': '172.24.5.60', 'end': '172.24.5.99'}]
+  ManagementNetworkVlanID: 50
+  ManagementMtu: 9000
+
+  # Customize the IP subnets to match the local environment
+  ExternalNetCidr: '10.8.60.0/24'
+  # Customize the IP range to use for static IPs and VIPs
+  # Leave room if the external network is also used for floating IPs
+  ExternalAllocationPools: [{'start': '10.8.60.51', 'end': '10.8.60.55'}]
+  ExternalMtu: 1500
+  # Gateway routers for routable networks
+  # Set only one Default Route, either on the external network OR the mgmt network, not both.
+  ExternalInterfaceDefaultRoute: '10.8.60.1'
+
+  # Define the DNS servers (maximum 2) for the overcloud nodes
+  DnsServers: ['10.8.60.9']
+  # Define the NTP server
+  NtpServer: ['10.8.60.9']
+
+  # List of Neutron network types for tenant networks (will be used in order)
+  #NeutronNetworkType: 'geneve,vlan'
+  # The tunnel type for the tenant network (vxlan or gre). Set to '' to disable tunneling.
+  #NeutronTunnelTypes: 'vxlan'
+  # Neutron VLAN ranges per network, for example 'datacentre:1:499,tenant:500:1000':
+  NeutronNetworkVLANRanges: 'datacentre:1:1000'
+  # Customize bonding options, e.g. "mode=4 lacp_rate=1 updelay=1000 miimon=100"
+  # for Linux bonds w/LACP, or "bond_mode=active-backup" for OVS active/backup.
+  BondInterfaceOvsOptions: "bond_mode=active-backup"
+
+  # Add firewall rule to allow ssh on external network interfaces
+  ExtraConfig:
+    tripleo::firewall::firewall_rules:
+      '300 allow ssh on external interfaces':
+        port: 22
+        proto: tcp
+        source: 10.8.60.0/24
+        action: accept
+      '301 allow ssh on the provisioning_network':
+        port: 22
+        proto: tcp
+        source: 10.1.1.0/24
+        action: accept

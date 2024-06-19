@@ -1,0 +1,211 @@
+- name: Controller
+  hostname_format: '%stackname%-controller-%index%'
+  count: 3
+  ansible_playbooks:
+    - playbook: /usr/share/ansible/tripleo-playbooks/cli-overcloud-node-growvols.yaml
+      extra_vars:
+        growvols_args: >
+          /=8GB
+          /tmp=2GB
+          /var/log=4GB
+          /var/log/audit=1GB
+          /home=2GB
+          /var=100%
+    - playbook: /home/stack/templates/overcloud/set-root-password.yaml
+  defaults:
+    profile: control
+    config_drive:
+      cloud_config:
+        chpasswd:
+          list: |-
+            root:openstack
+          expire: False
+    networks:
+    - network: ctlplane
+      vif: true
+    - network: internal_api
+      subnet: internal_api_subnet
+    - network: tenant
+      subnet: tenant_subnet
+    - network: storage
+      subnet: storage_subnet
+    - network: storage_mgmt
+      subnet: storage_mgmt_subnet
+    - network: external
+      subnet: external_subnet
+    network_config:
+      template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/controller.j2
+      net_config_data_lookup:
+        nah-controller-0:
+          nic1: 52:54:00:f4:ec:3c
+          nic2: 52:54:00:cb:8f:ff 
+          nic3: 52:54:00:55:41:72
+        nah-controller-1:
+          nic1: 52:54:00:c5:e6:f1
+          nic2: 52:54:00:09:84:c1
+          nic3: 52:54:00:e0:cb:00
+        nah-controller-2:
+          nic1: 52:54:00:d2:7e:ba
+          nic2: 52:54:00:92:10:19
+          nic3: 52:54:00:64:4d:a0
+      default_route_network:
+      - external
+  instances:
+  - hostname: nah-controller-0
+    name: nah-controller-0
+    networks:
+    - network: ctlplane
+      vif: true
+      fixed_ip: 10.2.3.42
+    - network: internal_api
+      fixed_ip: 172.24.1.42
+    - network: tenant
+      fixed_ip: 172.24.2.42
+    - network: storage
+      fixed_ip: 172.24.3.42
+    - network: storage_mgmt
+      fixed_ip: 172.24.4.42
+    - network: external
+      fixed_ip: 10.8.60.186
+  - hostname: nah-controller-1
+    name: nah-controller-1
+    networks:
+    - network: ctlplane
+      vif: true
+      fixed_ip: 10.2.3.43
+    - network: internal_api
+      fixed_ip: 172.24.1.43
+    - network: tenant
+      fixed_ip: 172.24.2.43
+    - network: storage
+      fixed_ip: 172.24.3.43
+    - network: storage_mgmt
+      fixed_ip: 172.24.4.43
+    - network: external
+      fixed_ip: 10.8.60.187
+  - hostname: nah-controller-2
+    name: nah-controller-2
+    networks:
+    - network: ctlplane
+      vif: true
+      fixed_ip: 10.2.3.44
+    - network: internal_api
+      fixed_ip: 172.24.1.44
+    - network: tenant
+      fixed_ip: 172.24.2.44
+    - network: storage
+      fixed_ip: 172.24.3.44
+    - network: storage_mgmt
+      fixed_ip: 172.24.4.44
+    - network: external
+      fixed_ip: 10.8.60.188
+- name: Compute
+  hostname_format: '%stackname%-novacompute-%index%'
+  count: 1
+  ansible_playbooks:
+    - playbook: /usr/share/ansible/tripleo-playbooks/cli-overcloud-node-growvols.yaml
+      extra_vars:
+        growvols_args: >
+          /=8GB
+          /tmp=2GB
+          /var/log=4GB
+          /var/log/audit=1GB
+          /home=2GB
+          /var=100%
+    - playbook: /home/stack/templates/overcloud/set-root-password.yaml
+  defaults:
+    profile: compute
+    config_drive:
+      cloud_config:
+        chpasswd:
+          list: |-
+            root:openstack
+          expire: False
+    networks:
+    - network: ctlplane
+      vif: true
+    - network: internal_api
+      subnet: internal_api_subnet
+    - network: tenant
+      subnet: tenant_subnet
+    - network: storage
+      subnet: storage_subnet
+    - network: external
+      subnet: external_subnet
+    network_config:
+      template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/compute.j2
+      net_config_data_lookup:
+        nah-compute-0:
+          nic1: 52:54:00:1c:b9:39 
+          nic2: 52:54:00:38:f7:e1
+          nic3: 52:54:00:1b:14:f6
+      default_route_network:
+      - external
+  instances:
+  - hostname: nah-compute-0
+    name: nah-compute-0
+    networks:
+    - network: ctlplane
+      vif: true
+      fixed_ip: 10.2.3.45
+    - network: internal_api
+      fixed_ip: 172.24.1.45
+    - network: tenant
+      fixed_ip: 172.24.2.45
+    - network: storage
+      fixed_ip: 172.24.3.45
+    - network: external
+      fixed_ip: 10.8.60.189
+- name: CephStorage
+  hostname_format: '%stackname%-cephstorage-%index%'
+  count: 1
+  ansible_playbooks:
+    - playbook: /usr/share/ansible/tripleo-playbooks/cli-overcloud-node-growvols.yaml
+      extra_vars:
+        growvols_args: >
+          /=8GB
+          /tmp=2GB
+          /var/log=4GB
+          /var/log/audit=1GB
+          /home=2GB
+          /var=100%
+    - playbook: /home/stack/templates/overcloud/set-root-password.yaml
+  defaults:
+    profile: ceph
+    config_drive:
+      cloud_config:
+        chpasswd:
+          list: |-
+            root:openstack
+          expire: False
+    networks:
+    - network: ctlplane
+      vif: true
+    - network: storage
+      subnet: storage_subnet
+    - network: storage_mgmt
+      subnet: storage_mgmt_subnet
+    - network: external
+      subnet: external_subnet
+    network_config:
+      template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/ceph.j2
+      net_config_data_lookup:
+        nah-ceph-0:
+          nic1: 52:54:00:89:3c:75 
+          nic2: 52:54:00:ae:10:bc
+          nic3: 52:54:00:98:b5:b5
+      default_route_network:
+      - external
+  instances:
+  - hostname: nah-ceph-0
+    name: nah-ceph-0
+    networks:
+    - network: ctlplane
+      vif: true
+      fixed_ip: 10.2.3.47
+    - network: storage
+      fixed_ip: 172.24.3.47
+    - network: storage_mgmt
+      fixed_ip: 172.24.4.47
+    #- network: external
+    #  fixed_ip: 10.8.60.189

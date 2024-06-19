@@ -1,0 +1,12 @@
+parameter_defaults:
+  
+  OvercloudControllerFlavor: baremetal
+  OvercloudComputeFlavor: baremetal
+  OvercloudCephStorageFlavor: baremetal
+  #OvercloudComputeHCIStorageFlavor: baremetal
+
+  ControllerCount: 1
+  ComputeCount: 1
+  CephStorageCount: 1
+  #ComputeHCICount: 1
+

@@ -1,0 +1,17 @@
+parameter_defaults:
+  CephAnsibleDisksConfig:
+    devices:
+      - '/dev/disk/by-path/pci-0000:08:00.0'
+      - '/dev/disk/by-path/pci-0000:09:00.0'
+      - '/dev/disk/by-path/pci-0000:0a:00.0'
+    osd_scenario: collocated
+    journal_size: 1024
+  # https://bugs.launchpad.net/tripleo/+bug/1749544
+  CephPoolDefaultSize: 1
+  CephPoolDefaultPgNum: 32
+  # CephConfigOverrides:
+  # mon_max_pg_per_osd: 2048
+  CephAnsiblePlaybookVerbosity: 3
+  CephAnsibleEnvironmentVariables:
+    ANSIBLE_SSH_RETRIES: '6'
+    DEFAULT_FORKS: '2'

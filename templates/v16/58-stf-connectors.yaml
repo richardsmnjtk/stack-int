@@ -1,0 +1,10 @@
+parameter_defaults:
+    MetricsQdrConnectors:
+    - host: default-interconnect-5671-service-telemetry.apps.lab.kinton.lab 
+      port: 443
+      role: edge
+      sslProfile: sslProfile
+      verifyHostname: false
+
+    MetricsQdrSSLProfiles:
+    -   name: sslProfile

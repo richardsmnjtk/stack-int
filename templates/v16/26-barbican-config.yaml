@@ -1,0 +1,6 @@
+parameter_defaults:
+  BarbicanSimpleCryptoGlobalDefault: true
+
+resource_registry:
+  OS::TripleO::Services::BarbicanApi: /usr/share/openstack-tripleo-heat-templates/deployment/barbican/barbican-api-container-puppet.yaml
+  OS::TripleO::Services::BarbicanBackendSimpleCrypto: /usr/share/openstack-tripleo-heat-templates/deployment/barbican/barbican-backend-simple-crypto-puppet.yaml

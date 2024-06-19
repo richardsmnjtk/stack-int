@@ -1,0 +1,16 @@
+parameter_defaults:
+  RhsmVars:
+    rhsm_username: "vikypratama"
+    rhsm_password: "stupa2011"
+    rhsm_org_id: "7697519"
+    rhsm_pool_ids: "18a85f99c7ed94239017efd6bb514136"
+    rhsm_method: "portal"
+    rhsm_release: "8.2"
+    rhsm_repos:
+      - rhel-8-for-x86_64-baseos-tus-rpms
+      - rhel-8-for-x86_64-appstream-tus-rpms
+      - rhel-8-for-x86_64-highavailability-tus-rpms
+      - ansible-2.9-for-rhel-8-x86_64-rpms
+      - openstack-16.1-for-rhel-8-x86_64-rpms
+      - rhceph-4-tools-for-rhel-8-x86_64-rpms
+      - fast-datapath-for-rhel-8-x86_64-rpms

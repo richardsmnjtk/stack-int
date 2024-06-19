@@ -1,0 +1,17 @@
+nodes:
+  - ports:
+      - address: 52:54:00:c9:2f:b5
+        physical_network: ctlplane
+    name: nah-compute-0
+    cpu: '6'
+    memory: '8192'
+    disk: '50'
+    arch: x86_64
+    root_device:
+      name: /dev/vda
+    pm_type: ipmi
+    pm_user: stack
+    pm_password: stack
+    pm_addr: 10.8.60.9
+    pm_port: '6252'
+    capabilities: boot_option:local,boot_mode:uefi,profile:compute,node:compute-0

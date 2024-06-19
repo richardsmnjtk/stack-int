@@ -1,0 +1,26 @@
+templates: /usr/share/openstack-tripleo-heat-templates/
+environments:
+  - /home/stack/basic-templates/00-node-info.yaml
+  - /home/stack/basic-templates/02-custom-domain.yaml
+  - /home/stack/basic-templates/04-custom-hostnames.yaml
+  - /home/stack/basic-templates/10-inject-trust-anchor.yaml
+  - /home/stack/basic-templates/12-low-memory-usage.yaml
+  - /home/stack/basic-templates/14-disable-telemetry.yaml
+  - /home/stack/basic-templates/18-extraconfig.yaml
+  - /home/stack/basic-templates/22-change_root_password-env.yaml
+  - /home/stack/basic-templates/24-admin-password.yaml
+  - /home/stack/basic-templates/26-barbican-config.yaml
+  - /home/stack/basic-templates/30-network-isolation.yaml
+  - /home/stack/basic-templates/32-network-environment.yaml
+#- /home/stack/basic-templates/33-interface-mapping.yaml
+  - /home/stack/basic-templates/34-ips-from-pool-all.yaml
+  - /home/stack/basic-templates/36-fixed-ip-vips.yaml
+  - /home/stack/basic-templates/42-neutron-ovn-dvr-ha.yaml
+  - /home/stack/basic-templates/50-ceph-ansible.yaml
+#- /home/stack/basic-templates/51-ceph-dashboard.yaml
+  - /home/stack/basic-templates/52-ceph-config.yaml
+#- /home/stack/basic-templates/53-ceph-disk-layout.yaml
+  - /home/stack/basic-templates/55-manila-cephfsnative-config.yaml
+  - /home/stack/basic-templates/61-octavia.yaml
+  ##Include container info and registry credentials
+  - /home/stack/containers-prepare-parameter.yaml

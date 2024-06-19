@@ -1,0 +1,34 @@
+# A Heat environment that can be used to deploy OVN services with non HA OVN DB servers.
+resource_registry:
+  OS::TripleO::Docker::NeutronMl2PluginBase: /usr/share/openstack-tripleo-heat-templates/deployment/neutron/neutron-plugin-ml2-ovn.yaml
+  OS::TripleO::Services::OVNController: /usr/share/openstack-tripleo-heat-templates/deployment/ovn/ovn-controller-container-puppet.yaml
+  OS::TripleO::Services::OVNDBs: /usr/share/openstack-tripleo-heat-templates/deployment/ovn/ovn-dbs-pacemaker-puppet.yaml
+  OS::TripleO::Services::OVNMetadataAgent: /usr/share/openstack-tripleo-heat-templates/deployment/ovn/ovn-metadata-container-puppet.yaml
+
+  # Disabling Neutron services that overlap with OVN
+  OS::TripleO::Services::NeutronOvsAgent: OS::Heat::None
+  OS::TripleO::Services::ComputeNeutronOvsAgent: OS::Heat::None
+  OS::TripleO::Services::NeutronL3Agent: OS::Heat::None
+  OS::TripleO::Services::NeutronMetadataAgent: OS::Heat::None
+  OS::TripleO::Services::NeutronDhcpAgent: OS::Heat::None
+  OS::TripleO::Services::ComputeNeutronCorePlugin: OS::Heat::None
+
+parameter_defaults:
+  NeutronMechanismDrivers: ovn
+  OVNVifType: ovs
+  OVNNeutronSyncMode: log
+  OVNQosDriver: ovn-qos
+  OVNTunnelEncapType: geneve
+  NeutronEnableDHCPAgent: false
+  NeutronTypeDrivers: 'geneve,vlan,flat'
+  NeutronNetworkType: 'geneve'
+  NeutronBridgeMappings: 'datacentre:br-ex,vlanprovider1:br-prov1,vlanprovider2:br-prov2,storage:br-trunk'
+  NeutronNetworkVLANRanges: 'datacentre:1:1000,vlanprovider1:101:104,vlanprovider2:101:104,storage:30:30'
+  NeutronServicePlugins: 'qos,ovn-router,trunk'
+  NeutronVniRanges: ['1:65536', ]
+  NeutronEnableDVR: true
+  ControllerParameters:
+    OVNCMSOptions: "enable-chassis-as-gw"
+    OVNDBSPacemakerTimeout: 360
+    OVNRemoteProbeInterval: 180000
+    OVNOpenflowProbeInterval: 180

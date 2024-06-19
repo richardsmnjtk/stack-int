@@ -1,0 +1,17 @@
+## This environment serves the purpose of enabling collectd to send telemetry and notification data
+## through QPID dispatch routers.
+
+resource_registry:
+  #OS::TripleO::Services::Collectd: ../../deployment/metrics/collectd-container-puppet.yaml
+  OS::TripleO::Services::Collectd: /usr/share/openstack-tripleo-heat-templates/deployment/metrics/collectd-container-puppet.yaml
+
+parameter_defaults:
+  CollectdConnectionType: amqp1
+  CollectdAmqpInstances:
+    notify:
+      notify: true
+      format: JSON
+      presettle: false
+    telemetry:
+      format: JSON
+      presettle: false

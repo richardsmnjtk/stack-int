@@ -1,0 +1,699 @@
+Undercloud:
+  hosts:
+    undercloud: {}
+  vars:
+    ansible_connection: local
+    ansible_host: localhost
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_remote_tmp: /tmp/ansible-${USER}
+    auth_url: https://10.1.1.13:13000
+    cacert: null
+    os_auth_token: gAAAAABiU_LS-29TWV51M6Fml9yuB-p8KAN4GgigINcVNa2OP8fwSNlNr-W3T0E65XbvZT9hU2elN3cHEcUUxp0IJqik_Ou0IM3fAajO8_V8OdQUHIuuRm4WcSmm9d1wpGQ-rzM8mLGgXwFMCg1MrO8Ovh2dGzQFBojLWhqaByC0HxzKSAH3FOk
+    overcloud_admin_password: Redhat123!@#
+    overcloud_horizon_url: http://192.168.240.50:80/dashboard
+    overcloud_keystone_url: http://192.168.240.50:5000
+    plan: overcloud
+    plans: [overcloud]
+    project_name: admin
+    undercloud_service_list: [tripleo_nova_compute, tripleo_heat_engine, tripleo_ironic_conductor,
+      tripleo_swift_container_server, tripleo_swift_object_server, tripleo_mistral_engine]
+    undercloud_swift_url: https://10.1.1.13:13808/v1/AUTH_84e11bb5379a48a59dbb6a333456869a
+    username: admin
+Compute:
+  children:
+    overcloud_Compute: {}
+overcloud_Compute:
+  hosts:
+    compute0: {ansible_host: 10.1.1.117, canonical_hostname: compute0.overcloud.kinton.lab,
+      ctlplane_hostname: compute0.ctlplane.overcloud.kinton.lab, ctlplane_ip: 10.1.1.117,
+      deploy_server_id: db04c9f5-36e2-4c85-9349-8bf37befdb40, external_hostname: compute0.external.overcloud.kinton.lab,
+      external_ip: 192.168.240.5, internal_api_hostname: compute0.internalapi.overcloud.kinton.lab,
+      internal_api_ip: 172.24.1.5, management_hostname: compute0.management.overcloud.kinton.lab,
+      management_ip: 172.24.5.5, storage_hostname: compute0.storage.overcloud.kinton.lab,
+      storage_ip: 172.24.3.5, tenant_hostname: compute0.tenant.overcloud.kinton.lab,
+      tenant_ip: 172.24.2.5}
+    compute1: {ansible_host: 10.1.1.115, canonical_hostname: compute1.overcloud.kinton.lab,
+      ctlplane_hostname: compute1.ctlplane.overcloud.kinton.lab, ctlplane_ip: 10.1.1.115,
+      deploy_server_id: f67be153-5659-4b48-a9f2-f86851ba1b75, external_hostname: compute1.external.overcloud.kinton.lab,
+      external_ip: 192.168.240.6, internal_api_hostname: compute1.internalapi.overcloud.kinton.lab,
+      internal_api_ip: 172.24.1.6, management_hostname: compute1.management.overcloud.kinton.lab,
+      management_ip: 172.24.5.6, storage_hostname: compute1.storage.overcloud.kinton.lab,
+      storage_ip: 172.24.3.6, tenant_hostname: compute1.tenant.overcloud.kinton.lab,
+      tenant_ip: 172.24.2.6}
+  vars:
+    ansible_ssh_user: heat-admin
+    bootstrap_server_id: 3cadd294-4c2f-44c5-8abb-5f0fbf2f89e6
+    serial: '1'
+    tripleo_role_name: Compute
+    tripleo_role_networks: [ctlplane, external, internal_api, management, storage,
+      tenant]
+Controller:
+  children:
+    overcloud_Controller: {}
+overcloud_Controller:
+  hosts:
+    controller0: {ansible_host: 10.1.1.114, canonical_hostname: controller0.overcloud.kinton.lab,
+      ctlplane_hostname: controller0.ctlplane.overcloud.kinton.lab, ctlplane_ip: 10.1.1.114,
+      deploy_server_id: 3cadd294-4c2f-44c5-8abb-5f0fbf2f89e6, external_hostname: controller0.external.overcloud.kinton.lab,
+      external_ip: 192.168.240.1, internal_api_hostname: controller0.internalapi.overcloud.kinton.lab,
+      internal_api_ip: 172.24.1.1, management_hostname: controller0.management.overcloud.kinton.lab,
+      management_ip: 172.24.5.1, storage_hostname: controller0.storage.overcloud.kinton.lab,
+      storage_ip: 172.24.3.1, storage_mgmt_hostname: controller0.storagemgmt.overcloud.kinton.lab,
+      storage_mgmt_ip: 172.24.4.1, tenant_hostname: controller0.tenant.overcloud.kinton.lab,
+      tenant_ip: 172.24.2.1}
+  vars:
+    ansible_ssh_user: heat-admin
+    bootstrap_server_id: 3cadd294-4c2f-44c5-8abb-5f0fbf2f89e6
+    serial: '1'
+    tripleo_role_name: Controller
+    tripleo_role_networks: [ctlplane, external, internal_api, management, storage,
+      storage_mgmt, tenant]
+CephStorage:
+  children:
+    overcloud_CephStorage: {}
+overcloud_CephStorage:
+  hosts:
+    ceph0: {ansible_host: 10.1.1.103, canonical_hostname: ceph0.overcloud.kinton.lab,
+      ctlplane_hostname: ceph0.ctlplane.overcloud.kinton.lab, ctlplane_ip: 10.1.1.103,
+      deploy_server_id: 7d2e3918-7b89-413f-bd49-3f684f45cec9, external_hostname: ceph0.external.overcloud.kinton.lab,
+      external_ip: 192.168.240.2, management_hostname: ceph0.management.overcloud.kinton.lab,
+      management_ip: 172.24.5.2, storage_hostname: ceph0.storage.overcloud.kinton.lab,
+      storage_ip: 172.24.3.2, storage_mgmt_hostname: ceph0.storagemgmt.overcloud.kinton.lab,
+      storage_mgmt_ip: 172.24.4.2}
+    ceph1: {ansible_host: 10.1.1.109, canonical_hostname: ceph1.overcloud.kinton.lab,
+      ctlplane_hostname: ceph1.ctlplane.overcloud.kinton.lab, ctlplane_ip: 10.1.1.109,
+      deploy_server_id: 5cbe4d72-d8f2-47b4-94f0-c96767bc5ea7, external_hostname: ceph1.external.overcloud.kinton.lab,
+      external_ip: 192.168.240.3, management_hostname: ceph1.management.overcloud.kinton.lab,
+      management_ip: 172.24.5.3, storage_hostname: ceph1.storage.overcloud.kinton.lab,
+      storage_ip: 172.24.3.3, storage_mgmt_hostname: ceph1.storagemgmt.overcloud.kinton.lab,
+      storage_mgmt_ip: 172.24.4.3}
+  vars:
+    ansible_ssh_user: heat-admin
+    bootstrap_server_id: 3cadd294-4c2f-44c5-8abb-5f0fbf2f89e6
+    serial: '1'
+    tripleo_role_name: CephStorage
+    tripleo_role_networks: [ctlplane, external, management, storage, storage_mgmt]
+allovercloud:
+  children:
+    overcloud_allovercloud: {}
+overcloud_allovercloud:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {container_cli: podman, ctlplane_vip: 10.1.1.100, external_vip: 192.168.240.50,
+    internal_api_vip: 172.24.1.50, redis_vip: 172.24.1.51, storage_mgmt_vip: 172.24.4.50,
+    storage_vip: 172.24.3.50}
+overcloud:
+  children:
+    overcloud_allovercloud: {}
+overcloud_overcloud:
+  children:
+    overcloud_allovercloud: {}
+neutron_plugin_ml2_ovn:
+  children:
+    overcloud_neutron_plugin_ml2_ovn: {}
+overcloud_neutron_plugin_ml2_ovn:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+manila_scheduler:
+  children:
+    overcloud_manila_scheduler: {}
+overcloud_manila_scheduler:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+nova_compute:
+  children:
+    overcloud_nova_compute: {}
+overcloud_nova_compute:
+  children:
+    overcloud_Compute: {}
+  vars: {ansible_ssh_user: heat-admin}
+mysql_client:
+  children:
+    overcloud_mysql_client: {}
+overcloud_mysql_client:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+sshd:
+  children:
+    overcloud_sshd: {}
+overcloud_sshd:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+metrics_qdr:
+  children:
+    overcloud_metrics_qdr: {}
+overcloud_metrics_qdr:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+barbican_api:
+  children:
+    overcloud_barbican_api: {}
+overcloud_barbican_api:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+nova_conductor:
+  children:
+    overcloud_nova_conductor: {}
+overcloud_nova_conductor:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+boot_params_service:
+  children:
+    overcloud_boot_params_service: {}
+overcloud_boot_params_service:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+keystone_public_api:
+  children:
+    overcloud_keystone_public_api: {}
+overcloud_keystone_public_api:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+keystone_admin_api:
+  children:
+    overcloud_keystone_admin_api: {}
+overcloud_keystone_admin_api:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+cinder_api:
+  children:
+    overcloud_cinder_api: {}
+overcloud_cinder_api:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+keystone:
+  children:
+    overcloud_keystone: {}
+overcloud_keystone:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+ceilometer_agent_notification:
+  children:
+    overcloud_ceilometer_agent_notification: {}
+overcloud_ceilometer_agent_notification:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+kernel:
+  children:
+    overcloud_kernel: {}
+overcloud_kernel:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+iscsid:
+  children:
+    overcloud_iscsid: {}
+overcloud_iscsid:
+  children:
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+timezone:
+  children:
+    overcloud_timezone: {}
+overcloud_timezone:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+chrony:
+  children:
+    overcloud_chrony: {}
+overcloud_chrony:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+collectd:
+  children:
+    overcloud_collectd: {}
+overcloud_collectd:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+ca_certs:
+  children:
+    overcloud_ca_certs: {}
+overcloud_ca_certs:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+clustercheck:
+  children:
+    overcloud_clustercheck: {}
+overcloud_clustercheck:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+ovn_metadata:
+  children:
+    overcloud_ovn_metadata: {}
+overcloud_ovn_metadata:
+  children:
+    overcloud_Compute: {}
+  vars: {ansible_ssh_user: heat-admin}
+ceph_rgw:
+  children:
+    overcloud_ceph_rgw: {}
+overcloud_ceph_rgw:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+heat_api_cloudwatch_disabled:
+  children:
+    overcloud_heat_api_cloudwatch_disabled: {}
+overcloud_heat_api_cloudwatch_disabled:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+ceph_osd:
+  children:
+    overcloud_ceph_osd: {}
+overcloud_ceph_osd:
+  children:
+    overcloud_CephStorage: {}
+  vars: {ansible_ssh_user: heat-admin}
+ceph_mds:
+  children:
+    overcloud_ceph_mds: {}
+overcloud_ceph_mds:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+manila_backend_cephfs:
+  children:
+    overcloud_manila_backend_cephfs: {}
+overcloud_manila_backend_cephfs:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+ceilometer_agent_central:
+  children:
+    overcloud_ceilometer_agent_central: {}
+overcloud_ceilometer_agent_central:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+logrotate_crond:
+  children:
+    overcloud_logrotate_crond: {}
+overcloud_logrotate_crond:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+snmp:
+  children:
+    overcloud_snmp: {}
+overcloud_snmp:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+ovn_controller:
+  children:
+    overcloud_ovn_controller: {}
+overcloud_ovn_controller:
+  children:
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+tuned:
+  children:
+    overcloud_tuned: {}
+overcloud_tuned:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+certmonger_user:
+  children:
+    overcloud_certmonger_user: {}
+overcloud_certmonger_user:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+mysql:
+  children:
+    overcloud_mysql: {}
+overcloud_mysql:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+octavia_housekeeping:
+  children:
+    overcloud_octavia_housekeeping: {}
+overcloud_octavia_housekeeping:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+heat_api:
+  children:
+    overcloud_heat_api: {}
+overcloud_heat_api:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+oslo_messaging_rpc:
+  children:
+    overcloud_oslo_messaging_rpc: {}
+overcloud_oslo_messaging_rpc:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+pacemaker:
+  children:
+    overcloud_pacemaker: {}
+overcloud_pacemaker:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+nova_migration_target:
+  children:
+    overcloud_nova_migration_target: {}
+overcloud_nova_migration_target:
+  children:
+    overcloud_Compute: {}
+  vars: {ansible_ssh_user: heat-admin}
+ovn_dbs:
+  children:
+    overcloud_ovn_dbs: {}
+overcloud_ovn_dbs:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+podman:
+  children:
+    overcloud_podman: {}
+overcloud_podman:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+nova_metadata:
+  children:
+    overcloud_nova_metadata: {}
+overcloud_nova_metadata:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+container_image_prepare:
+  children:
+    overcloud_container_image_prepare: {}
+overcloud_container_image_prepare:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+placement:
+  children:
+    overcloud_placement: {}
+overcloud_placement:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+glance_api:
+  children:
+    overcloud_glance_api: {}
+overcloud_glance_api:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+ceph_client:
+  children:
+    overcloud_ceph_client: {}
+overcloud_ceph_client:
+  children:
+    overcloud_Compute: {}
+  vars: {ansible_ssh_user: heat-admin}
+manila_api:
+  children:
+    overcloud_manila_api: {}
+overcloud_manila_api:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+horizon:
+  children:
+    overcloud_horizon: {}
+overcloud_horizon:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+redis:
+  children:
+    overcloud_redis: {}
+overcloud_redis:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+tripleo_firewall:
+  children:
+    overcloud_tripleo_firewall: {}
+overcloud_tripleo_firewall:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+nova_api:
+  children:
+    overcloud_nova_api: {}
+overcloud_nova_api:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+neutron_api:
+  children:
+    overcloud_neutron_api: {}
+overcloud_neutron_api:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+octavia_deployment_config:
+  children:
+    overcloud_octavia_deployment_config: {}
+overcloud_octavia_deployment_config:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+cinder_scheduler:
+  children:
+    overcloud_cinder_scheduler: {}
+overcloud_cinder_scheduler:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+nova_vnc_proxy:
+  children:
+    overcloud_nova_vnc_proxy: {}
+overcloud_nova_vnc_proxy:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+manila_share:
+  children:
+    overcloud_manila_share: {}
+overcloud_manila_share:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+octavia_health_manager:
+  children:
+    overcloud_octavia_health_manager: {}
+overcloud_octavia_health_manager:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+memcached:
+  children:
+    overcloud_memcached: {}
+overcloud_memcached:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+nova_libvirt_guests:
+  children:
+    overcloud_nova_libvirt_guests: {}
+overcloud_nova_libvirt_guests:
+  children:
+    overcloud_Compute: {}
+  vars: {ansible_ssh_user: heat-admin}
+ceilometer_agent_compute:
+  children:
+    overcloud_ceilometer_agent_compute: {}
+overcloud_ceilometer_agent_compute:
+  children:
+    overcloud_Compute: {}
+  vars: {ansible_ssh_user: heat-admin}
+haproxy:
+  children:
+    overcloud_haproxy: {}
+overcloud_haproxy:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+ceph_mon:
+  children:
+    overcloud_ceph_mon: {}
+overcloud_ceph_mon:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+barbican_backend_simple_crypto:
+  children:
+    overcloud_barbican_backend_simple_crypto: {}
+overcloud_barbican_backend_simple_crypto:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+nova_libvirt:
+  children:
+    overcloud_nova_libvirt: {}
+overcloud_nova_libvirt:
+  children:
+    overcloud_Compute: {}
+  vars: {ansible_ssh_user: heat-admin}
+octavia_worker:
+  children:
+    overcloud_octavia_worker: {}
+overcloud_octavia_worker:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+cinder_volume:
+  children:
+    overcloud_cinder_volume: {}
+overcloud_cinder_volume:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+nova_scheduler:
+  children:
+    overcloud_nova_scheduler: {}
+overcloud_nova_scheduler:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+heat_engine:
+  children:
+    overcloud_heat_engine: {}
+overcloud_heat_engine:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+tripleo_packages:
+  children:
+    overcloud_tripleo_packages: {}
+overcloud_tripleo_packages:
+  children:
+    overcloud_CephStorage: {}
+    overcloud_Compute: {}
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+ceph_mgr:
+  children:
+    overcloud_ceph_mgr: {}
+overcloud_ceph_mgr:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+oslo_messaging_notify:
+  children:
+    overcloud_oslo_messaging_notify: {}
+overcloud_oslo_messaging_notify:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+octavia_api:
+  children:
+    overcloud_octavia_api: {}
+overcloud_octavia_api:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+heat_api_cfn:
+  children:
+    overcloud_heat_api_cfn: {}
+overcloud_heat_api_cfn:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+rgws:
+  children:
+    overcloud_rgws: {}
+overcloud_rgws:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+osds:
+  children:
+    overcloud_osds: {}
+overcloud_osds:
+  children:
+    overcloud_CephStorage: {}
+  vars: {ansible_ssh_user: heat-admin}
+mdss:
+  children:
+    overcloud_mdss: {}
+overcloud_mdss:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+clients:
+  children:
+    overcloud_clients: {}
+overcloud_clients:
+  children:
+    overcloud_Compute: {}
+  vars: {ansible_ssh_user: heat-admin}
+mons:
+  children:
+    overcloud_mons: {}
+overcloud_mons:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}
+mgrs:
+  children:
+    overcloud_mgrs: {}
+overcloud_mgrs:
+  children:
+    overcloud_Controller: {}
+  vars: {ansible_ssh_user: heat-admin}

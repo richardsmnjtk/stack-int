@@ -1,0 +1,15 @@
+Undercloud:
+  hosts:
+    undercloud: {}
+  vars:
+    ansible_connection: local
+    ansible_host: localhost
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_remote_tmp: /tmp/ansible-${USER}
+    any_error_fatal: true
+    auth_url: null
+    max_fail_percentage: 0
+    project_name: null
+    undercloud_service_list:
+    - tripleo_ironic_conductor
+    username: null

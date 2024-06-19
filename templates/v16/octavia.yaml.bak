@@ -1,0 +1,135 @@
+resource_registry:
+  OS::TripleO::Services::OctaviaApi: /usr/share/tripleo-heat-templates-rendered/deployment/octavia/octavia-api-container-puppet.yaml
+  OS::TripleO::Services::OctaviaHousekeeping: /usr/share/tripleo-heat-templates-rendered/deployment/octavia/octavia-housekeeping-container-puppet.yaml
+  OS::TripleO::Services::OctaviaHealthManager: /usr/share/tripleo-heat-templates-rendered/deployment/octavia/octavia-health-manager-container-puppet.yaml
+  OS::TripleO::Services::OctaviaWorker: /usr/share/tripleo-heat-templates-rendered/deployment/octavia/octavia-worker-container-puppet.yaml
+  OS::TripleO::Services::OctaviaDeploymentConfig: /usr/share/tripleo-heat-templates-rendered/deployment/octavia/octavia-deployment-config.yaml
+
+parameter_defaults:
+    NeutronServicePlugins: "qos,router,trunk"
+    NeutronEnableForceMetadata: true
+    OctaviaLoadBalancerTopology: "ACTIVE_STANDBY"
+
+    # This flag enables internal generation of certificates for communication
+    # with amphorae. Use OctaviaCaCert, OctaviaCaKey, OctaviaCaKeyPassphrase
+    # and OctaviaClient cert to configure secure production environments.
+    OctaviaGenerateCerts: true
+
+    # override management network defaults to avoid conflict
+    OctaviaControlSubnetCidr: '172.23.0.0/16'
+    OctaviaControlSubnetGateway: '172.23.0.1'
+    OctaviaControlSubnetPoolStart: '172.23.0.2'
+    OctaviaControlSubnetPoolEnd: '172.23.255.254'
+
+    # OctaviaGenerateCerts: false
+
+    # OctaviaCaCert: |
+    #   -----BEGIN CERTIFICATE-----
+    #   MIIDmzCCAoOgAwIBAgIUV1nkx9y7ea8z5NFR6hcjyc3bYSMwDQYJKoZIhvcNAQEL
+    #   BQAwXDELMAkGA1UEBhMCVVMxDzANBgNVBAgMBkRlbmlhbDEUMBIGA1UEBwwLU3By
+    #   aW5nZmllbGQxDDAKBgNVBAoMA0RpczEYMBYGA1UEAwwPd3d3LmV4YW1wbGUuY29t
+    #   MCAXDTIyMDMzMDEzMDQ0NloYDzIwNzIwMzE3MTMwNDQ2WjBcMQswCQYDVQQGEwJV
+    #   UzEPMA0GA1UECAwGRGVuaWFsMRQwEgYDVQQHDAtTcHJpbmdmaWVsZDEMMAoGA1UE
+    #   CgwDRGlzMRgwFgYDVQQDDA93d3cuZXhhbXBsZS5jb20wggEiMA0GCSqGSIb3DQEB
+    #   AQUAA4IBDwAwggEKAoIBAQDIbbKv9+aH1SREyFzeZD+wAB8aKc1KDYBmkIJLDmGe
+    #   BUgaGWv2xcfYTLBmRvdOxEWluOjE7X+WUOCm+hXl+zawSBikCEa0vcTR/K2bqN9Y
+    #   wDqIRF5WWXzTsqQTHUl30c2R1r96q8Y8HKKBMuBUalSgwuDjnTd58Wcjk8e/VANw
+    #   L31qiG1WPEuk36qw0zOrrj7Z15HXWUMBZRE5oEZ5qsKAUmuieZwjYBNfmuUXfl96
+    #   N+OVZ1EA5EKrsVJt3U5hO5SHKMaMPN0plYi3du5E6K7Lo35pkqNTpr59m2iYaVDE
+    #   ytb+JOjkGTaylSBB1bS0D6JSmZNbV+Mo7QrgGpoitrnTAgMBAAGjUzBRMB0GA1Ud
+    #   DgQWBBStXt00XAPW5nQ8QxvqKmEl5CpXqzAfBgNVHSMEGDAWgBStXt00XAPW5nQ8
+    #   QxvqKmEl5CpXqzAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQAb
+    #   42yP8czoGxuymxfEu1eTZY/tMaYF7pQGyedx4IUT7g5Z6WAEfBQc1tM5A/B8LO7d
+    #   9RqpItKLIfl/I9WVaLnchlE9TnS1bI+2zNI2Yx3AL2n2P5g4TdPtlXlGnBrQ7+NO
+    #   Z5OG2wtJeZQyGnWIA38T+3bicz7pu9WGsR1im6nGLKwsG8L8nJs1Tl3SWeb8oCj3
+    #   Ny8CS8xz8vH0Jbq5QpbsACz5EHZbvimdoNR91ls6m1rrbr5h6ALPvHi54KSDGUO4
+    #   DiZH3dxgaF14Pr+U92B3LKGVsUJrXFOpjxyQS2cSd+RDFPK07gGHrER7m+A81HZC
+    #   MrltEuDahVdcLaTP/46J
+    #   -----END CERTIFICATE-----
+
+    # OctaviaCaKey: |
+    #   -----BEGIN RSA PRIVATE KEY-----
+    #   Proc-Type: 4,ENCRYPTED
+    #   DEK-Info: AES-256-CBC,BA3C0BD4A6B1D396828FE4FE4CB77852
+      
+    #   fyMqr6EB9mh+bPm3VH4yOp4w3jK7bx5lwg3JkJwDRRMSsZ7KKODqxyxTMwh/ch/C
+    #   MYBOyTiXo/PswyBg5WSRafVtZncwB964ypX2drRIGGi7yW0ZByXZc3ohaiZvRqp4
+    #   S9QaUj/Q+vukn3UBcbG3xNx2zIjACSMAV9gyxQsXg6Wvp0etkXWc9nIGLX/qlZpd
+    #   N1+gSxk16J9ONwYkoe/ik/bhvsMX5xrs2B7qtXcZdM+cL+YeP1W7cfpvr9U/hOe+
+    #   PMzm57R5PUpGSbsKHacOP3zZw79Pawrq5TDPUIhvzAhLy27dd79rTZWO2gv9Vc3t
+    #   BagawELoks/MHaR4COVYcoYsg8udpKCLIvdKY1tr8qPMS1FtS2OLMHQKD82naMII
+    #   SojbP3n+UydiSdcT70QM2rQ3RPqAHIuUmI4WNi/ls706zfT6P4AFGwZ3/vAtVQl/
+    #   3t3vyK/5aQQt/I5z2++XnaHjQ+2wrj8IRJ2lFo98TIttANJjVdIgtLSaSLmCFUIk
+    #   BiK79rhx6XyuMvPePpbKlq3Ia4BeleDiIiVlz4I3QiZUG8cAnCfmiMG8Et156hDb
+    #   w4CFuk27dtBGevXw9iyGpMJuZt6IiImbLifYun1Gg2wu0HpiUgZ8rVFteH2C0ObY
+    #   lhJRJY760s4iZbknTUhGkiyLTy6VbDurqQ6gTsg87E88qAhsBYz8f11JP3T8EzYt
+    #   /AjoJQNTn+ZFJUolh0MWneOnxuFvoumVcOcCorfZ+WSA3cL1yDE2rE+pzWVg45UN
+    #   mnt4ws7jRFhfcUGsYZzvP5pY+TYNyfCO/6bhu5oEKeE2jbs6f+lNv0aoUI4/gaN1
+    #   5CNHo+mH2amnJnYVYKrUVdFW/wwz2eQTUgziU9UHHX1CaG31a/eEZLd52Pz2OGDk
+    #   fG63sbpWAJThEGGpfg6s4+z618bhS/EIvMDqw4uswplqfW8bzXICPEI0K/g4uFKO
+    #   yEYo8tzGTSnxxYmJD6dAYCBYnBWo+w2My9jJhqL72OfzJlNz657D2Easc9xArACK
+    #   X8YW7dg9gQuHLN0rvtsxFrACI9hRHU6nHsCBh/iCSBY8eXHevi0K88fanLYhkWcr
+    #   kfcyEVFG4iO16pyyAhdmtyl/+/cKOJ9drZtbCTmIxIneREPDtnUE7ZWsNry8l1Ag
+    #   VkxgTp1KHUpk/h2/z91B07sUaQlp3K1zabflccQRjWn81OnIfh4EwtYS44d5JQOv
+    #   /BeNi630DCc2XfoVeXq/sfrvdu6HkS0aHBnCNRG8m/3dj/YRdiS3lun8zDAhJQF4
+    #   ZAygKY5uvSUPmes6Ank8jnKchdrJnRt6ukH2THc+1quVAUZNHawvEJclBk9W02bQ
+    #   YEWzzL+9P98CPAXhwjV1uW5qBgO3BTrBqioAdaB69tPBzz90h0SN9SDA37I5Xbkz
+    #   IDQnSfm+TOfAOWtT6+n0e9BeQJntJS1GMdCMBltwxzqnUSbfdizw5+42pQiVV7zM
+    #   FZv7XNOs9hSB4gO/y7HYr2aU3iCg5uxNEzsk+Dz58k+6ZUWU3upDGTOGZ6UUfALZ
+    #   H6z/lmJ602aQTZ6obSSbjq4V428jo9vMXYuQ90YdVrklHTT4hdJpwDwNwkHeG74H
+    #   -----END RSA PRIVATE KEY-----
+
+    # OctaviaClientCert: |
+    #   -----BEGIN CERTIFICATE-----
+    #   MIIDmDCCAoCgAwIBAgIBATANBgkqhkiG9w0BAQsFADBcMQswCQYDVQQGEwJVUzEP
+    #   MA0GA1UECAwGRGVuaWFsMRQwEgYDVQQHDAtTcHJpbmdmaWVsZDEMMAoGA1UECgwD
+    #   RGlzMRgwFgYDVQQDDA93d3cuZXhhbXBsZS5jb20wHhcNMjIwMzMwMTMwNDQ3WhcN
+    #   MzIwMzI3MTMwNDQ3WjBGMQswCQYDVQQGEwJVUzEPMA0GA1UECAwGRGVuaWFsMQww
+    #   CgYDVQQKDANEaXMxGDAWBgNVBAMMD3d3dy5leGFtcGxlLmNvbTCCASIwDQYJKoZI
+    #   hvcNAQEBBQADggEPADCCAQoCggEBAPVQR6xqxKLW0u7hegRQx58YnccHZnZ68OM5
+    #   /xpLb6mN0vqvCjfX6KBQG0HFqhI7sRl9+NuXzYulb2T/OBtuIOZ2l7a39+L9AfJY
+    #   zJxgQHPB/iRRLnMkHLbauahW5+xKhBlK1a0xtAk7OC7V8IOi7zKMjyUz4RmaRdSh
+    #   b6t/meNwuLZUcufkSC5CZTam0V7N86WSgKgxBYsJDI7e0p2erKpUrS/Q3jwdlDyZ
+    #   vF/FNpp+xvelPqiGap8n98sEY9nrcpY0bHNu3FJn88StjGoqOWBlw8eg8y3yJgl+
+    #   L3u9DQ2gLshJYM8nJAGJic76S4fVZu69EZz3zrFklD2tEvCb+uUCAwEAAaN7MHkw
+    #   CQYDVR0TBAIwADAsBglghkgBhvhCAQ0EHxYdT3BlblNTTCBHZW5lcmF0ZWQgQ2Vy
+    #   dGlmaWNhdGUwHQYDVR0OBBYEFLM/zXGdD+XFFiIza2Scm/3DhO62MB8GA1UdIwQY
+    #   MBaAFK1e3TRcA9bmdDxDG+oqYSXkKlerMA0GCSqGSIb3DQEBCwUAA4IBAQCjX7Ok
+    #   eMc4fJEV85bu/7sNmQW/STUNirebUpGCqTuSsSN3e6Dkpew7/KMOG9iigZzPI27f
+    #   GSkdTA8AY9hYv7SxyuobwmY6VVjFiWA5I9FcbWVClVJSTp3RAvrxhP2UauI6p/Zw
+    #   CesqKQYYgt78wFHm51U6zozvXuFhwd98Wjsfx7o7GUKoxsL9d8eU4gKY+zLq8H7f
+    #   j83fnvvoA+kmXbCrU/7aDyMd+YjXvNQIB6erQLYxc0ELzkiK7ijN9LbdvCIKJVzN
+    #   2NrTYcCHH5K1ziIHra+C81RdAXKSwOXxaQJJAJao0qJUHFHH20PnWHhbHUmKihyK
+    #   OY3JEh8817AkUb/S
+    #   -----END CERTIFICATE-----
+    #   -----BEGIN PRIVATE KEY-----
+    #   MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQD1UEesasSi1tLu
+    #   4XoEUMefGJ3HB2Z2evDjOf8aS2+pjdL6rwo31+igUBtBxaoSO7EZffjbl82LpW9k
+    #   /zgbbiDmdpe2t/fi/QHyWMycYEBzwf4kUS5zJBy22rmoVufsSoQZStWtMbQJOzgu
+    #   1fCDou8yjI8lM+EZmkXUoW+rf5njcLi2VHLn5EguQmU2ptFezfOlkoCoMQWLCQyO
+    #   3tKdnqyqVK0v0N48HZQ8mbxfxTaafsb3pT6ohmqfJ/fLBGPZ63KWNGxzbtxSZ/PE
+    #   rYxqKjlgZcPHoPMt8iYJfi97vQ0NoC7ISWDPJyQBiYnO+kuH1WbuvRGc986xZJQ9
+    #   rRLwm/rlAgMBAAECggEAMBG9GbIKOgZyatDQAgx6MVi3ggqXL1xD26K/tD1X8heS
+    #   YgDutaafNNq9nJPJEa2UtHQU0aLbaiPOwjGooudflwliDTHbZyVAvmZcIcBSoNxA
+    #   mok12uYWolYVz0DITWsEm5goarm0l6J9DeBqMsE4seUNH7McxtGOIW5I3YgxdXl8
+    #   4bJR7Pn4JRO7CjwrmGs6nIGfcGT81lf5iMsYxqZATHPqZhnmIpF25b2FgyClKCdR
+    #   uvwqUcDJ2vLK+pqRmx/16aO1hfWancduoFmwPP5U8XzbmkxxgUFPdHbi6nxBUYc1
+    #   Tt4lfNA12NH6nJd/LFSp7sjzWY52qlLgC4m+laZWQQKBgQD8NylO4/73hpQYfuTN
+    #   dh2SjmrN1gaf96UMTQKtDLar3BQ8/Hdw2sP47mirxk4rraU+pNyXoeb69a5yP8Q2
+    #   dn8nW1BKbBQJrd2FjKI1Q6VMBRAs6iaZPj8y0WGO+i+OOOYeGV7HoA65d/yf1+FT
+    #   WgF+DGhdiuQbvvWfkp3IKaEFOQKBgQD4/ps4cTgZ2pil/E8JMyXu1KYLh4/W239u
+    #   9WsL5TWHoRNef5LBItfX17tiy/njPUvW+qzMObaHOt1bA/vMJ08WxSo9WIGGOc9b
+    #   NKYuOyj9d69uxgiwLesmxkdMokMQRy5EZF81aYJ+sMkCEx+XqL9pZLmweOc9jnNf
+    #   tW4PBoNvDQKBgFcLSoxZj3Mp1Q6nLJvkOcyMrjufs+WdeC7InTXP/3NMnwd1MluW
+    #   hK/yx9kQtYXJhhAaoa8LR0YxaCUx8KvDNZsFnq4worG8eYlPweOUFwYncS+vF+cn
+    #   XnRRYtQPcD4rUO/uXZGTocFMsbkQrkkv9PflnFc8SgFxZB/QX/fmthWxAoGBAIA/
+    #   w/uCdX77lPyJxLvcWIF3jj8KCBCG5lBkoEp0OOovESbvVsucAsjuGVp97awZ+mI0
+    #   o6RdZaKpszIaDyvMY3Q7AdKvL6fPRvqXV7EgT7CeYQIRhpAYVrKWFktmmFxeDXq0
+    #   qEV+nvRaYm5rIy6egFjsxKgc3h5arRpy/MlIdZJRAoGBAPb032v08877+ZFqG0AC
+    #   xykhXlutkuqG5XlFFk9F6Ul2xpEHaW061lXnhekDq7D8KXD2njFRxxdlKJoSl+x2
+    #   6m4Ma6F8oPCKjZtH3D0wt8WtuqunXY097T7gr0lCwTYJYC6IOUgg6qzUe5NKoHcD
+    #   y2vN28+qryE2Zv00XKmINTxY
+    #   -----END PRIVATE KEY-----
+
+    # OctaviaCaKeyPassphrase:
+    #   q0vxUvrHA7eZqF67PKtQiKIsj
