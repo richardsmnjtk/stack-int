@@ -36,23 +36,23 @@
     network_config:
       template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/controller.j2
       net_config_data_lookup:
-        rich-controller-0:
-          nic1: 52:54:00:17:2c:df
-          nic2: 52:54:00:11:9f:0f 
-          nic3: 52:54:00:b3:bf:76
-        rich-controller-1:
+        ctrl-0-ver17.1:
+          nic1: 52:54:00:11:9f:0f
+          nic2: 52:54:00:b3:bf:76
+          nic3: 52:54:00:17:2c:df
+        ctrl-1-ver17.1:
           nic1: 52:54:00:d9:74:1b
           nic2: 52:54:00:e2:c5:2d
           nic3: 52:54:00:59:65:16
-        rich-controller-2:
-          nic1: 52:54:00:0b:91:ca
+        ctrl-2-ver17.1:
+          nic1: 52:54:00:90:0e:4f
           nic2: 52:54:00:27:7e:1c
-          nic3: 52:54:00:90:0e:4f
+          nic3: 52:54:00:0b:91:ca
       default_route_network:
       - external
   instances:
   - hostname: rich-controller-0
-    name: rich-controller-0
+    name: ctrl-0-ver17.1
     networks:
     - network: ctlplane
       vif: true
@@ -68,7 +68,7 @@
     - network: external
       fixed_ip: 10.8.60.186
   - hostname: rich-controller-1
-    name: rich-controller-1
+    name: ctrl-1-ver17.1
     networks:
     - network: ctlplane
       vif: true
@@ -84,7 +84,7 @@
     - network: external
       fixed_ip: 10.8.60.187
   - hostname: rich-controller-2
-    name: rich-controller-2
+    name: ctrl-2-ver17.1
     networks:
     - network: ctlplane
       vif: true
@@ -101,7 +101,7 @@
       fixed_ip: 10.8.60.188
 - name: Compute
   hostname_format: '%stackname%-novacompute-%index%'
-  count: 1
+  count: 2
   ansible_playbooks:
     - playbook: /usr/share/ansible/tripleo-playbooks/cli-overcloud-node-growvols.yaml
       extra_vars:
@@ -135,19 +135,19 @@
     network_config:
       template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/compute.j2
       net_config_data_lookup:
-        rich-compute-0:
-          nic1: 52:54:00:41:b1:f3
+        cmp-0-ver17.1:
+          nic1: 52:54:00:74:9b:0e
           nic2: 52:54:00:2c:a0:4b
-          nic3: 52:54:00:74:9b:0e
-        rich-compute-1:
-          nic1: 52:54:00:f7:f0:95 
+          nic3: 52:54:00:41:b1:f3
+        cmp-1-ver17.1:
+          nic1: 52:54:00:ce:63:85
           nic2: 52:54:00:0f:fd:1f
-          nic3: 52:54:00:ce:63:85
+          nic3: 52:54:00:f7:f0:95
       default_route_network:
       - external
   instances:
   - hostname: rich-compute-0
-    name: rich-compute-0
+    name: cmp-0-ver17.1
     networks:
     - network: ctlplane
       vif: true
@@ -161,7 +161,7 @@
     - network: external
       fixed_ip: 10.8.60.189
   - hostname: rich-compute-1
-    name: rich-compute-1
+    name: cmp-1-ver17.1
     networks:
     - network: ctlplane
       vif: true
