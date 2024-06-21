@@ -36,23 +36,23 @@
     network_config:
       template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/controller.j2
       net_config_data_lookup:
-        nah-controller-0:
-          nic1: 52:54:00:f4:ec:3c
-          nic2: 52:54:00:cb:8f:ff 
-          nic3: 52:54:00:55:41:72
-        nah-controller-1:
-          nic1: 52:54:00:c5:e6:f1
-          nic2: 52:54:00:09:84:c1
-          nic3: 52:54:00:e0:cb:00
-        nah-controller-2:
-          nic1: 52:54:00:d2:7e:ba
-          nic2: 52:54:00:92:10:19
-          nic3: 52:54:00:64:4d:a0
+        rich-controller-0:
+          nic1: 52:54:00:17:2c:df
+          nic2: 52:54:00:11:9f:0f 
+          nic3: 52:54:00:b3:bf:76
+        rich-controller-1:
+          nic1: 52:54:00:d9:74:1b
+          nic2: 52:54:00:e2:c5:2d
+          nic3: 52:54:00:59:65:16
+        rich-controller-2:
+          nic1: 52:54:00:0b:91:ca
+          nic2: 52:54:00:27:7e:1c
+          nic3: 52:54:00:90:0e:4f
       default_route_network:
       - external
   instances:
-  - hostname: nah-controller-0
-    name: nah-controller-0
+  - hostname: rich-controller-0
+    name: rich-controller-0
     networks:
     - network: ctlplane
       vif: true
@@ -67,8 +67,8 @@
       fixed_ip: 172.24.4.42
     - network: external
       fixed_ip: 10.8.60.186
-  - hostname: nah-controller-1
-    name: nah-controller-1
+  - hostname: rich-controller-1
+    name: rich-controller-1
     networks:
     - network: ctlplane
       vif: true
@@ -83,8 +83,8 @@
       fixed_ip: 172.24.4.43
     - network: external
       fixed_ip: 10.8.60.187
-  - hostname: nah-controller-2
-    name: nah-controller-2
+  - hostname: rich-controller-2
+    name: rich-controller-2
     networks:
     - network: ctlplane
       vif: true
@@ -135,15 +135,19 @@
     network_config:
       template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/compute.j2
       net_config_data_lookup:
-        nah-compute-0:
-          nic1: 52:54:00:1c:b9:39 
-          nic2: 52:54:00:38:f7:e1
-          nic3: 52:54:00:1b:14:f6
+        rich-compute-0:
+          nic1: 52:54:00:41:b1:f3
+          nic2: 52:54:00:2c:a0:4b
+          nic3: 52:54:00:74:9b:0e
+        rich-compute-1:
+          nic1: 52:54:00:f7:f0:95 
+          nic2: 52:54:00:0f:fd:1f
+          nic3: 52:54:00:ce:63:85
       default_route_network:
       - external
   instances:
-  - hostname: nah-compute-0
-    name: nah-compute-0
+  - hostname: rich-compute-0
+    name: rich-compute-0
     networks:
     - network: ctlplane
       vif: true
@@ -156,56 +160,17 @@
       fixed_ip: 172.24.3.45
     - network: external
       fixed_ip: 10.8.60.189
-- name: CephStorage
-  hostname_format: '%stackname%-cephstorage-%index%'
-  count: 1
-  ansible_playbooks:
-    - playbook: /usr/share/ansible/tripleo-playbooks/cli-overcloud-node-growvols.yaml
-      extra_vars:
-        growvols_args: >
-          /=8GB
-          /tmp=2GB
-          /var/log=4GB
-          /var/log/audit=1GB
-          /home=2GB
-          /var=100%
-    - playbook: /home/stack/templates/overcloud/set-root-password.yaml
-  defaults:
-    profile: ceph
-    config_drive:
-      cloud_config:
-        chpasswd:
-          list: |-
-            root:openstack
-          expire: False
+  - hostname: rich-compute-1
+    name: rich-compute-1
     networks:
     - network: ctlplane
       vif: true
+      fixed_ip: 10.2.3.46
+    - network: internal_api
+      fixed_ip: 172.24.1.46
+    - network: tenant
+      fixed_ip: 172.24.2.46
     - network: storage
-      subnet: storage_subnet
-    - network: storage_mgmt
-      subnet: storage_mgmt_subnet
+      fixed_ip: 172.24.3.46
     - network: external
-      subnet: external_subnet
-    network_config:
-      template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/ceph.j2
-      net_config_data_lookup:
-        nah-ceph-0:
-          nic1: 52:54:00:89:3c:75 
-          nic2: 52:54:00:ae:10:bc
-          nic3: 52:54:00:98:b5:b5
-      default_route_network:
-      - external
-  instances:
-  - hostname: nah-ceph-0
-    name: nah-ceph-0
-    networks:
-    - network: ctlplane
-      vif: true
-      fixed_ip: 10.2.3.47
-    - network: storage
-      fixed_ip: 172.24.3.47
-    - network: storage_mgmt
-      fixed_ip: 172.24.4.47
-    #- network: external
-    #  fixed_ip: 10.8.60.189
+      fixed_ip: 10.8.60.190

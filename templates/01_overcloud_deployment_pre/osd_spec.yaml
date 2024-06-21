@@ -1,8 +1,0 @@
-service_type: osd
-placement:
-  hosts:
-    - nah-ceph-0
-data_devices:
-  all: true
-  #size: '180G:'
-encrypted: true

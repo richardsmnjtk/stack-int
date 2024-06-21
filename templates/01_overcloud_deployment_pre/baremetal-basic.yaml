@@ -43,8 +43,8 @@
       default_route_network:
       - external
   instances:
-  - hostname: nah-controller-0
-    name: nah-controller-0
+  - hostname: rich-controller-0
+    name: rich-controller-0
     networks:
     - network: ctlplane
       vif: true
@@ -102,8 +102,8 @@
       default_route_network:
       - external
   instances:
-  - hostname: nah-compute-0
-    name: nah-compute-0
+  - hostname: rich-compute-0
+    name: rich-compute-0
     networks:
     - network: ctlplane
       vif: true
@@ -116,68 +116,3 @@
       fixed_ip: 172.24.3.45
     - network: external
       fixed_ip: 10.8.60.188
-- name: CephStorage
-  hostname_format: '%stackname%-cephstorage-%index%'
-  count: 2
-  ansible_playbooks:
-    - playbook: /usr/share/ansible/tripleo-playbooks/cli-overcloud-node-growvols.yaml
-      extra_vars:
-        growvols_args: >
-          /=15GB
-          /tmp=4GB
-          /var/log=10GB
-          /var/log/audit=4GB
-          /home=2GB
-          /var=100%
-    - playbook: /home/stack/templates/overcloud/set-root-password.yaml
-  defaults:
-    profile: ceph
-    config_drive:
-      cloud_config:
-        chpasswd:
-          list: |-
-            root:openstack
-          expire: False
-    networks:
-    - network: ctlplane
-      vif: true
-    - network: storage
-      subnet: storage_subnet
-    - network: storage_mgmt
-      subnet: storage_mgmt_subnet
-    - network: external
-      subnet: external_subnet
-    network_config:
-      template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/ceph.j2
-      net_config_data_lookup:
-        new-ceph-0:
-          nic1: 52:54:00:89:3c:75 
-          nic2: 52:54:00:ae:10:bc
-          nic3: 52:54:00:98:b5:b5
-      default_route_network:
-      - external
-  instances:
-  - hostname: nah-ceph-0
-    name: nah-ceph-0
-    networks:
-    - network: ctlplane
-      vif: true
-      fixed_ip: 10.2.3.48
-    - network: storage
-      fixed_ip: 172.24.3.48
-    - network: storage_mgmt
-      fixed_ip: 172.24.4.48
-    - network: external
-      fixed_ip: 10.8.60.189
-  - hostname: nah-ceph-1
-      name: nah-ceph-1
-      networks:
-      - network: ctlplane
-        vif: true
-        fixed_ip: 10.2.3.49
-      - network: storage
-        fixed_ip: 172.24.3.49
-      - network: storage_mgmt
-        fixed_ip: 172.24.4.49
-      - network: external
-        fixed_ip: 10.8.60.190
