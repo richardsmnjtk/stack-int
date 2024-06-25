@@ -37,17 +37,17 @@
       template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/controller.j2
       net_config_data_lookup:
         ctrl-0-ver17.1:
-          nic1: 52:54:00:11:9f:0f
-          nic2: 52:54:00:b3:bf:76
-          nic3: 52:54:00:17:2c:df
+          nic1: 52:54:00:13:f8:b0
+          nic2: 52:54:00:54:b9:0c
+          nic3: 52:54:00:3a:73:27
         ctrl-1-ver17.1:
-          nic1: 52:54:00:d9:74:1b
-          nic2: 52:54:00:e2:c5:2d
-          nic3: 52:54:00:59:65:16
+          nic1: 52:54:00:26:bd:8d
+          nic2: 52:54:00:c9:dc:ed
+          nic3: 52:54:00:ba:4d:63
         ctrl-2-ver17.1:
-          nic1: 52:54:00:90:0e:4f
-          nic2: 52:54:00:27:7e:1c
-          nic3: 52:54:00:0b:91:ca
+          nic1: 52:54:00:b0:b5:bf
+          nic2: 52:54:00:e5:99:38
+          nic3: 52:54:00:77:21:cd
       default_route_network:
       - external
   instances:
@@ -56,31 +56,31 @@
     networks:
     - network: ctlplane
       vif: true
-      fixed_ip: 10.2.3.42
+      fixed_ip: 10.2.3.47
     - network: internal_api
-      fixed_ip: 172.24.1.42
+      fixed_ip: 172.24.1.47
     - network: tenant
-      fixed_ip: 172.24.2.42
+      fixed_ip: 172.24.2.47
     - network: storage
-      fixed_ip: 172.24.3.42
+      fixed_ip: 172.24.3.47
     - network: storage_mgmt
-      fixed_ip: 172.24.4.42
+      fixed_ip: 172.24.4.47
     - network: external
-      fixed_ip: 10.8.60.186
+      fixed_ip: 10.8.60.197
   - hostname: rich-controller-1
     name: ctrl-1-ver17.1
     networks:
     - network: ctlplane
       vif: true
-      fixed_ip: 10.2.3.43
+      fixed_ip: 10.2.3.48
     - network: internal_api
-      fixed_ip: 172.24.1.43
+      fixed_ip: 172.24.1.48
     - network: tenant
-      fixed_ip: 172.24.2.43
+      fixed_ip: 172.24.2.48
     - network: storage
-      fixed_ip: 172.24.3.43
+      fixed_ip: 172.24.3.48
     - network: storage_mgmt
-      fixed_ip: 172.24.4.43
+      fixed_ip: 172.24.4.48
     - network: external
       fixed_ip: 10.8.60.187
   - hostname: rich-controller-2
@@ -88,15 +88,15 @@
     networks:
     - network: ctlplane
       vif: true
-      fixed_ip: 10.2.3.44
+      fixed_ip: 10.2.3.49
     - network: internal_api
-      fixed_ip: 172.24.1.44
+      fixed_ip: 172.24.1.49
     - network: tenant
-      fixed_ip: 172.24.2.44
+      fixed_ip: 172.24.2.49
     - network: storage
-      fixed_ip: 172.24.3.44
+      fixed_ip: 172.24.3.49
     - network: storage_mgmt
-      fixed_ip: 172.24.4.44
+      fixed_ip: 172.24.4.49
     - network: external
       fixed_ip: 10.8.60.188
 - name: Compute
@@ -136,13 +136,13 @@
       template: /home/stack/templates/01_overcloud_deployment_pre/nic-configs/compute.j2
       net_config_data_lookup:
         cmp-0-ver17.1:
-          nic1: 52:54:00:74:9b:0e
-          nic2: 52:54:00:2c:a0:4b
-          nic3: 52:54:00:41:b1:f3
+          nic1: 52:54:00:51:09:a8
+          nic2: 52:54:00:d0:02:47
+          nic3: 52:54:00:96:35:5b
         cmp-1-ver17.1:
-          nic1: 52:54:00:ce:63:85
-          nic2: 52:54:00:0f:fd:1f
-          nic3: 52:54:00:f7:f0:95
+          nic1: 52:54:00:ad:12:88
+          nic2: 52:54:00:a0:81:35
+          nic3: 52:54:00:82:4e:98
       default_route_network:
       - external
   instances:
@@ -151,13 +151,13 @@
     networks:
     - network: ctlplane
       vif: true
-      fixed_ip: 10.2.3.45
+      fixed_ip: 10.2.3.50
     - network: internal_api
-      fixed_ip: 172.24.1.45
+      fixed_ip: 172.24.1.52
     - network: tenant
-      fixed_ip: 172.24.2.45
+      fixed_ip: 172.24.2.52
     - network: storage
-      fixed_ip: 172.24.3.45
+      fixed_ip: 172.24.3.52
     - network: external
       fixed_ip: 10.8.60.189
   - hostname: rich-compute-1
@@ -165,12 +165,12 @@
     networks:
     - network: ctlplane
       vif: true
-      fixed_ip: 10.2.3.46
+      fixed_ip: 10.2.3.51
     - network: internal_api
-      fixed_ip: 172.24.1.46
+      fixed_ip: 172.24.1.51
     - network: tenant
-      fixed_ip: 172.24.2.46
+      fixed_ip: 172.24.2.51
     - network: storage
-      fixed_ip: 172.24.3.46
+      fixed_ip: 172.24.3.51
     - network: external
       fixed_ip: 10.8.60.190
